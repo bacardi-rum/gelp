@@ -1,0 +1,19 @@
+.gelp-assignment-item {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px;
+  border: 1px solid #edebe9;
+
+  &:hover {
+    border-color: #c8c6c4;
+    cursor: pointer;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid #c8c6c4;
+    }
+  }
+}

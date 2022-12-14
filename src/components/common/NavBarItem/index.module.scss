@@ -1,0 +1,25 @@
+.gelp-nav-bar-item {
+  display: inline-block;
+  margin: 0 2px;
+  font-size: 16px;
+  text-decoration: none;
+  color: #484644;
+
+  &:visited {
+    color: #484644;
+  }
+
+  &:hover {
+    background-color: #f3f2f1;
+  }
+
+  &.active {
+    background-color: #f3f2f1;
+    font-weight: bold;
+    //border-bottom: 2px solid rgb(0, 120, 212);
+  }
+
+  &__inner {
+    padding: 8px 18px;
+  }
+}

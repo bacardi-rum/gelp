@@ -1,0 +1,40 @@
+.gelp-controlled-modal {
+  &__container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    width: 60%;
+    height: 100%;
+    //max-height: 100%;
+    position: relative;
+    // paddingTop: 20px;
+  }
+
+  &__header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 12px 30px;
+    background: #fff;
+  }
+
+  &__body {
+    height: 100%;
+    padding: 70px 30px 20px;
+    overflow-y: auto
+  }
+
+  &__footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 16px;
+    background: #ffffff;
+  }
+}

@@ -1,6 +1,33 @@
+$gray20: #f3f2f1;
+$gray10: #faf9f8;
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li,
+ol,
+dl {
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  //margin: 0;
-  //padding: 0;
-  color: var(--semi-color-text-0);
-  background-color: var( --semi-color-bg-0);
+  background-color: $gray20;
+}
+
+.gelp-home-list .ms-DocumentCard {
+  max-width: unset;
+  width: 100%;
+}
+
+.gelp-course-list {
+  .ms-List-page {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    //gap: 20px;
+  }
 }

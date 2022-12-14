@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="19e6e5e5-e3a3-4ddd-a938-1e7cffd35fb4" name="Changes" comment="DashboardView CourseView CourseForumView CourseDetailView">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/env.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/getHttpsConfig.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/jest/babelTransform.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/jest/cssTransform.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/jest/fileTransform.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/modules.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/paths.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/webpack.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/webpack/persistentCache/createEnvironmentHash.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/webpackDevServer.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/build.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/start.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/IMG_1525.JPG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/icon-fff.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/icon.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/AssignmentItem/index.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/AssignmentItem/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/CommentItem/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/ControlledModal/index.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/ControlledModal/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/CourseItem/index.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/CourseItem/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/InfoCard/index.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/InfoCard/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/NavBar/index.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/NavBar/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/NavBarItem/index.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/NavBarItem/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/RankingItem/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/TitledCard/index.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/TitledCard/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/TitledList/TitledList.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/TitledList/TitledListItem.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/TitledList/index.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/config/nav.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/laf/cloud.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/laf/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/AboutView.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/AssignmentView.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/CourseDetailView.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/CourseForumView.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/CourseView.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/DashboardView.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/LogView.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/LoginView.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/ScheduleView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/elp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gelp.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/network/config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/network/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/network/request.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/react-app-env.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/react-app-env.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/slices/counter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/slices/counter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Home.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="SCSS File" />
+        <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2IaSTgI8ZQxo0WopJ4ZwuPUthDt" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/shencong/WebstormProjects/gelp/src/components/common",
+    "list.type.of.created.stylesheet": "SCSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Users/shencong/WebstormProjects/gelp/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/common" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.start" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="19e6e5e5-e3a3-4ddd-a938-1e7cffd35fb4" name="Changes" comment="" />
+      <created>1670418212471</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1670418212471</updated>
+      <workItem from="1670418214954" duration="66664000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="DashboardView CourseView CourseForumView CourseDetailView" />
+    <option name="LAST_COMMIT_MESSAGE" value="DashboardView CourseView CourseForumView CourseDetailView" />
+  </component>
+</project>

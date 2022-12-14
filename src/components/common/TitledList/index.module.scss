@@ -1,0 +1,24 @@
+.gelp-titled-list {
+  margin-left: 20px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 40px 0 10px;
+  }
+
+  &__body {
+    min-height: calc(149px * 3);
+    background-color: #fff;
+    white-space: nowrap;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__footer {}
+}

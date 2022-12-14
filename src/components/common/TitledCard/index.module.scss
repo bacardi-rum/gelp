@@ -1,0 +1,46 @@
+.gelp-titled-card {
+  position: relative;
+  overflow: hidden;
+  margin-left: 20px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 40px 0 10px;
+  }
+
+  &__body {
+    position: relative;
+    background-color: #fff;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__footer {}
+
+  &__back,
+  &__forward {
+    position: absolute;
+    top: 55%;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: rgba($color: #fff, $alpha: .6);
+    font-weight: bold;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+  }
+
+  &__forward {
+    right: 10px;
+  }
+
+  &__back {
+    left: 10px;
+  }
+}

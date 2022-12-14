@@ -1,56 +1,96 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import './App.scss'
+import React, { Suspense, useMemo } from 'react'
+import '@/App.scss'
 import Routes from '@routes'
-import { LocaleProvider } from '@douyinfe/semi-ui'
-import zh_CN from '@douyinfe/semi-ui/lib/es/locale/source/zh_CN'
-import en_US from '@douyinfe/semi-ui/lib/es/locale/source/en_US'
-import { BrowserRouter } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import {
+  FontSizes,
+  getTheme,
+  Icon,
+  INavStyles,
+  IStackItemStyles,
+  IStackStyles,
+  MotionAnimations,
+  NeutralColors,
+  Persona,
+  PersonaSize,
+  SearchBox,
+  Stack
+} from '@fluentui/react'
+import navLinkGroup from '@config/nav'
+import NavBar from '@components/common/NavBar'
+import NavBarItem from '@components/common/NavBarItem'
 
+const theme = getTheme()
 
 const App = () => {
-  const [darkMode, setDarkMode] = useState(false)
-  const [locale, setLocale] = useState<'zh_CN' | 'en_US'>('zh_CN')
-
-  useEffect(() => {
-    const localLocale = localStorage.getItem('gelp-locale') as 'zh_CN' | 'en_US' | null
-    if (localLocale === 'en_US') { setLocale(localLocale) }
-    if (localLocale === null) {
-      localStorage.setItem('gelp-locale', 'zh_CN')
+  const navigate = useNavigate()
+  const navStyles = useMemo<Partial<INavStyles>>(() => {
+    return {
+      root: {
+        marginBottom: '-4px',
+        marginLeft: '2em',
+      },
+      groupContent: {
+        margin: 0
+      },
+      navItem: {
+        display: 'inline-block'
+      }
     }
   }, [])
 
-  useEffect(() => {
-    const isDarkMode = window?.matchMedia('(prefers-color-scheme: dark)')?.matches
-    if (isDarkMode) {
-      document.body.setAttribute('theme-mode', 'dark')
-      setDarkMode(isDarkMode)
+  const stackStyles = useMemo<Partial<IStackStyles>>(() => {
+    return {
+      root: {
+        padding: '6px 40px',
+        background: NeutralColors.white,
+        animation: MotionAnimations.slideDownIn,
+        // borderTop: `4px solid ${theme.palette.themePrimary}`
+      }
     }
   }, [])
 
-  const changeLocale = useCallback(() => {
-    if (locale === 'zh_CN') { setLocale('en_US') }
-    if (locale === 'en_US') { setLocale('zh_CN') }
-  }, [locale])
-
-  const toggleDarkMode = useCallback(() => {
-    const body = document.body
-    if (body.hasAttribute('theme-mode')) {
-      body.removeAttribute('theme-mode')
-    } else {
-      body.setAttribute('theme-mode', 'dark')
+  const stackItemStyles = useMemo<Partial<IStackItemStyles>>(() => {
+    return {
+      root: {
+        display: 'flex',
+        alignItems: 'center',
+        animation: MotionAnimations.slideDownIn
+      }
     }
-    setDarkMode(!darkMode)
-  }, [darkMode])
+  }, [])
 
   return (
-    <LocaleProvider locale={locale === 'zh_CN' ? zh_CN : en_US}>
-      <BrowserRouter>
-        <Routes toggleDarkMode={toggleDarkMode}
-                darkMode={darkMode}
-                changeLocale={changeLocale}
-                locale={locale}/>
-      </BrowserRouter>
-    </LocaleProvider>
+    <section>
+      <header>
+        <Stack horizontal horizontalAlign="space-between" styles={stackStyles}>
+          <Stack.Item styles={stackItemStyles}>
+            <Icon iconName="CodeEdit" styles={{ root: { fontSize: FontSizes.size42, marginTop: '-4px' } }}/>
+            <strong style={{
+              fontSize: FontSizes.size32,
+              color: NeutralColors.gray180
+            }}>GELP</strong>
+            <NavBar style={{ marginLeft: '2em' }}>
+              {navLinkGroup.map(navLink => (
+                <NavBarItem to={navLink.url} key={navLink.key}>
+                  {navLink.name}
+                </NavBarItem>
+              ))}
+            </NavBar>
+          </Stack.Item>
+          <Stack.Item styles={stackItemStyles}>
+            <SearchBox placeholder="搜索课程" styles={{ root: { minWidth: '300px', marginRight: '1em' } }}/>
+            <Persona hidePersonaDetails text="Hello" size={PersonaSize.size32}/>
+          </Stack.Item>
+        </Stack>
+      </header>
+      <main>
+        <Suspense>
+          <Routes/>
+        </Suspense>
+      </main>
+      <footer></footer>
+    </section>
   )
 }
 
