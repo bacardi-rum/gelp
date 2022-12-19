@@ -1,164 +1,144 @@
-import TitledCard from '@components/common/TitledCard'
-import InfoCard from '@components/common/InfoCard'
+import TitledCard from '@components/TitledCard'
+import InfoCard from '@components/InfoCard'
 import {
   Calendar,
   DateRangeType,
   DayOfWeek, DefaultButton,
   defaultCalendarStrings,
+  FontSizes,
   IDocumentCardPreviewProps,
   ImageFit,
   PrimaryButton,
   ProgressIndicator,
   Stack
 } from '@fluentui/react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import TitledList from '@components/common/TitledList/TitledList'
-import TitledListItem from '@components/common/TitledList/TitledListItem'
-
-const coursePreviewProps: IDocumentCardPreviewProps = {
-  getOverflowDocumentCountText(overflowCount: number) {
-    return `+ ${overflowCount} more`
-  },
-  previewImages: [
-    {
-      name: 'Revenue stream proposal fiscal year 2016 version02.pptx',
-      previewImageSrc: require('@assets/IMG_1525.JPG'),
-      imageFit: ImageFit.centerCover,
-      width: 318,
-      height: 196,
-    }
-  ]
-}
-
-const schedulePreviewProps: IDocumentCardPreviewProps = {
-  getOverflowDocumentCountText(overflowCount: number) {
-    return overflowCount > 0 ? `+ ${overflowCount} more` : ''
-  },
-  previewImages: [
-    { name: '1. 阅读JavaScript高级程序设计第一章和第二章。' },
-    { name: '2. 完成课后习题。' },
-    { name: '3. 阅读JavaScript高级程序设计第一章和第二章。' },
-    { name: '4. 阅读JavaScript高级程序设计第一章和第二章。' },
-    { name: '5. 阅读JavaScript高级程序设计第一章和第二章。' },
-  ]
-}
-
-const DocumentCardActivityPeople = [
-  { name: 'Annie Lindqvist', profileImageSrc: 'TestImages.personaFemale' },
-  { name: 'Annie Lindqvist', profileImageSrc: 'TestImages.personaFemale' },
-  { name: 'Annie Lindqvist', profileImageSrc: 'TestImages.personaFemale' },
-]
-
-const content = ` Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lorem nulla, malesuada ut sagittis sit
-            amet, vulputate in leo. Maecenas vulputate congue sapien eu tincidunt. Etiam eu sem turpis. Fusce tempor
-            sagittis nunc, ut interdum ipsum vestibulum non. Proin dolor elit, aliquam eget tincidunt non, vestibulum ut
-            turpis. In hac habitasse platea dictumst. In a odio eget enim porttitor maximus. Aliquam nulla nibh,
-            ullamcorper aliquam placerat eu, viverra et dui. Phasellus ex lectus, maximus in mollis ac, luctus vel eros.
-            Vivamus ultrices, turpis sed malesuada gravida, eros ipsum venenatis elit, et volutpat eros dui et ante.
-            Quisque ultricies mi nec leo ultricies mollis. Vivamus egestas volutpat lacinia. Quisque pharetra eleifend
-            efficitur.`
+import TitledList from '@components/TitledList/TitledList'
+import ScheduleItem from '@components/ScheduleItem'
+import AssignmentItem from '@components/AssignmentItem'
+import LogItem from '@components/LogItem'
+import { useAppSelector } from '@hooks'
+import { getLevel, getScoreByLevel } from '@config/level'
 
 const DashboardView: React.FC = () => {
   const navigate = useNavigate()
+  const userInfo = useAppSelector(state => state.user)
+  const courses = useAppSelector(state => state.course.courses)
+  const schedules = useAppSelector(state => state.schedule.schedules)
+  const logs = useAppSelector(state => state.log.logs)
+  const assignments = useAppSelector(state => state.assignment.assignments)
+  console.log(assignments)
 
-  // @ts-ignore
+
+  const [level, scoreRemaining] = getLevel(userInfo.score ?? 0)
+  const totalScore = getScoreByLevel(level)
+
   return (
     <section style={{ padding: '0 40px 40px 20px' }}>
-      <Stack horizontal horizontalAlign="space-around">
-        <Stack.Item grow={3} style={{ overflow: 'hidden' }}>
-          <TitledCard title="最近课程" subtitle="Recent Courses" indicator actions={
-            <PrimaryButton onClick={() => navigate('/course')}>查看所有课程</PrimaryButton>
-          }>
-            {new Array(6)
-              .fill({})
-              .map(v =>
-                <InfoCard
-                  style={{ verticalAlign: 'top' }}
-                  title="JavaScript高级程序设计"
-                  subtitle={new Array(Math.floor(Math.random() * 5 + 1)).fill('JavaScript高级程序设计').join(' ')}
-                  previewProps={coursePreviewProps} activity="Hello"
-                  people={DocumentCardActivityPeople}
-                  withModal
-                  modalTitle="JavaScript高级程序设计"
-                  modalBody={
-                    <p>{content}</p>
-                  }/>
-              )}
+      <Stack
+        horizontal
+        horizontalAlign="space-around"
+      >
+        <Stack.Item
+          grow={3}
+          style={{ overflow: 'hidden' }}
+        >
+          <TitledCard
+            title="最近课程"
+            subtitle="Recent Courses"
+            indicator
+            actions={(
+              <PrimaryButton onClick={() => navigate('/course')}>查看所有课程</PrimaryButton>
+            )}
+          >
+            {courses.map(course => (
+              <InfoCard key={course._id}
+                onClickHref={`#/course/detail/${course._id}`}
+                title={course.name}
+                previewProps={{
+                  previewImages: [
+                    {
+                      previewImageSrc: course.coverUrl,
+                      imageFit: ImageFit.centerCover,
+                      height: 196
+                    }
+                  ]
+                }}
+                subtitle={course.content}
+                activity={course.user.nickname}
+                people={[
+                  {
+                    name: course.user.name,
+                    profileImageSrc: ''
+                  }
+                ]}
+              />))
+            }
           </TitledCard>
         </Stack.Item>
-        <Stack.Item grow={1} disableShrink style={{ minWidth: '350px' }}>
-          <TitledCard title="等级" subtitle="Level" bodyStyle={{ padding: '20px' }}>
-            <ProgressIndicator label="Lv.1 40/100" description="距离下一等级还有60分，继续加油吧～" percentComplete={.4}
-                               barHeight={5}/>
+        <Stack.Item
+          grow={1}
+          disableShrink
+          style={{ minWidth: '350px' }}
+        >
+          <TitledCard
+            title="等级"
+            subtitle="Level"
+            bodyStyle={{ padding: '20px' }}
+          >
+            <ProgressIndicator
+              label={`Lv.${level}`}
+              description={`距离下一等级还有${scoreRemaining}分，继续加油吧～`}
+              percentComplete={(totalScore - scoreRemaining) / totalScore}
+              barHeight={5}
+            />
           </TitledCard>
         </Stack.Item>
       </Stack>
 
-      <Stack horizontal horizontalAlign="space-around">
-        <Stack.Item grow={1} className="gelp-home-list">
-          <TitledList items={[
-            {
-              _id: '111111',
-              name: '阅读《JavaScript高级程序设计》',
-              content: '',
-              startTime: new Date('2022-12-02'),
-              endTime: new Date(),
-              total: 10,
-              done: false,
-              tasks: []
-            },
-            {
-              _id: '222222',
-              name: '阅读《JavaScript高级程序设计》',
-              content: '',
-              startTime: new Date('2022-12-02'),
-              endTime: new Date(),
-              total: 10,
-              done: false,
-              tasks: []
-            }
-          ] as ScheduleItem[]} render={TitledListItem} title="计划" subtitle="Schedules" actions={
-            <>
-              <PrimaryButton style={{ marginRight: '8px' }}>查看所有计划</PrimaryButton>
-              <DefaultButton>新建计划</DefaultButton></>
-          }/>
+      <Stack
+        horizontal
+        horizontalAlign="space-around"
+      >
+        <Stack.Item
+          grow={1}
+          className="gelp-home-list"
+        >
+          <TitledList
+            items={schedules.slice(0, 6)}
+            render={ScheduleItem}
+            title="计划"
+            subtitle="Schedules"
+            actions={(
+              <PrimaryButton style={{ marginRight: '8px' }} onClick={() => navigate('/schedule')}>查看所有计划</PrimaryButton>
+            )}
+            bodyStyle={{ overflow: 'auto', height: '458px' }}
+          />
+        </Stack.Item>
+        <Stack.Item
+          grow={1}
+          className="gelp-home-list"
+        >
+          <TitledList
+            items={assignments.slice(0, 6)}
+            render={AssignmentItem}
+            title="即将到来的任务"
+            subtitle="Coming Assignments"
+            bodyStyle={{ overflow: 'auto', height: '458px' }}
+          />
         </Stack.Item>
         <Stack.Item grow={1} className="gelp-home-list">
-          <TitledList items={[
-            {
-              name: '阅读《JavaScript高级程序设计》',
-              startTime: new Date('2022-12-02'),
-              endTime: new Date(),
-              total: 10
-            },
-            {
-              name: '阅读《JavaScript高级程序设计》',
-              startTime: new Date('2022-12-02'),
-              endTime: new Date(),
-              total: 10
+          <TitledList
+            items={logs}
+            render={LogItem}
+            title="日志"
+            subtitle="Logs"
+            actions={
+              <PrimaryButton onClick={() => navigate('/log')}>查看所有日志</PrimaryButton>
             }
-          ]} render={TitledListItem} title="任务" subtitle="Assignments" actions={
-            <PrimaryButton>查看所有任务</PrimaryButton>
-          }/>
-        </Stack.Item>
-        <Stack.Item grow={1} className="gelp-home-list">
-          <TitledList items={[
-            {
-              name: '阅读《JavaScript高级程序设计》',
-              startTime: new Date('2022-12-02'),
-              endTime: new Date(),
-              total: 10
-            },
-            {
-              name: '阅读《JavaScript高级程序设计》',
-              startTime: new Date('2022-12-02'),
-              endTime: new Date(),
-              total: 10
-            }
-          ]} render={TitledListItem} title="日志" subtitle="Logs" actions={
-            <PrimaryButton>查看所有日志</PrimaryButton>
-          }/>
+            bodyStyle={{ overflow: 'auto', height: '458px' }}
+          />
         </Stack.Item>
       </Stack>
 
@@ -166,7 +146,7 @@ const DashboardView: React.FC = () => {
         <Stack.Item>
           <TitledCard title="日历" subtitle="Calendar">
             <Calendar
-              dateRangeType={DateRangeType.Month}
+              dateRangeType={DateRangeType.Day}
               highlightSelectedMonth
               showGoToToday
               firstDayOfWeek={DayOfWeek.Monday}
@@ -174,20 +154,9 @@ const DashboardView: React.FC = () => {
             />
           </TitledCard>
         </Stack.Item>
-        <Stack.Item style={{ overflow: 'hidden' }}>
+        <Stack.Item style={{ overflow: 'hidden' }} grow={1}>
           <TitledCard title="勋章墙" subtitle="Medals" indicator>
-            {new Array(6).fill((
-              <InfoCard
-                title="JavaScript高级程序设计"
-                subtitle="JavaScript高级程序设计"
-                previewProps={coursePreviewProps} activity="Hello"
-                people={DocumentCardActivityPeople}
-                withModal
-                modalTitle="JavaScript高级程序设计"
-                modalBody={
-                  <p>{content}</p>
-                }/>
-            ))}
+
           </TitledCard>
         </Stack.Item>
       </Stack>

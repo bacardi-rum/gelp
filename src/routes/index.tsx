@@ -11,55 +11,71 @@ const LoginView = lazyLoad('Login'),
   CourseForumView = lazyLoad('CourseForum'),
   AssignmentView = lazyLoad('Assignment'),
   ScheduleView = lazyLoad('Schedule'),
-  LogView = lazyLoad('Log')
+  LogView = lazyLoad('Log'),
+  ScheduleDetailView = lazyLoad('ScheduleDetail'),
+  LogDetailView = lazyLoad('LogDetail'),
+  LogCreateView = lazyLoad('LogCreate'),
+  Uploader = lazy(() => import('@components/Uploader'))
 
 const Routes: React.FC = () => {
   return useRoutes([
     {
       path: '/',
-      element: <LoginView/>,
+      element: <LoginView />,
       children: [],
     },
     {
       path: '/about',
-      element: <AboutView/>,
+      element: <AboutView />,
       children: []
     },
     {
       path: '/dashboard',
-      element: <DashboardView/>,
+      element: <DashboardView />,
       children: []
     },
     {
       path: '/course',
-      element: <CourseView/>,
+      element: <CourseView />,
       children: []
     },
     {
       path: '/course/detail/:_id',
-      element: <CourseDetailView/>
+      element: <CourseDetailView />
     },
     {
       path: '/course/forum/:_id',
-      element: <CourseForumView/>
+      element: <CourseForumView />
     },
     {
       path: '/course/assignment/:_id',
-      element: <AssignmentView/>,
+      element: <AssignmentView />,
       children: [
         {
           path: 'upload',
-          element: <div>Upload</div>
+          element: <Uploader />
         }
       ]
     },
     {
       path: '/schedule',
-      element: <ScheduleView/>
+      element: <ScheduleView />
+    },
+    {
+      path: '/schedule/detail/:_id',
+      element: <ScheduleDetailView />
     },
     {
       path: '/log',
-      element: <LogView/>
+      element: <LogView />
+    },
+    {
+      path: '/log/detail/:_id',
+      element: <LogDetailView />
+    },
+    {
+      path: '/log/create',
+      element: <LogCreateView />
     }
   ])
 }

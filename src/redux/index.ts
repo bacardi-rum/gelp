@@ -1,10 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit'
-import counterSlice from './slices/counter'
-
+import userReducer from '@redux/slices/userSlice'
+import courseReducer from '@redux/slices/courseSlice'
+import scheduleReducer from '@redux/slices/scheduleSlice'
+import logReducer from '@redux/slices/logSlice'
+import assignmentReducer from '@redux/slices/assignmentSlice'
 
 const store = configureStore({
   reducer: {
-    counter: counterSlice.reducer
+    user: userReducer,
+    course: courseReducer,
+    schedule: scheduleReducer,
+    log: logReducer,
+    assignment: assignmentReducer
   },
   devTools: true
 })
@@ -13,3 +20,5 @@ const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>
 // 推断出类型: { counter: CounterState }
 export type AppDispatch = typeof store.dispatch
+
+export default store

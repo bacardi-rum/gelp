@@ -10,6 +10,7 @@ class Cloud {
     this.APPID = appid
     this._cloud = new LafCloud({
       ...(options || {}),
+      // getAccessToken() { return JSON.parse(localStorage.getItem('gelp-user-info') as string)?.token ?? '' },
       baseUrl: `https://${appid}.lafyun.com`
     })
   }
@@ -25,7 +26,7 @@ class Cloud {
     return this._database
   }
 
-  public upload(key: string, body: PutObjectCommandInput['Body'], contentType: string, functionName: string = 'get-sts', bucketSuffix: string = 'public') {
+  public upload(key: string, body: PutObjectCommandInput['Body'], contentType: string, functionName: string = 'get-oss-sts', bucketSuffix: string = 'public') {
     return (this._cloud as LafCloud).invokeFunction(functionName, {})
       .then(({ credentials, endpoint, region }) => {
         const s3 = new S3({

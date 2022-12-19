@@ -1,3 +1,5 @@
+import AttachmentItem from '@components/AttachmentItem'
+import { useAppSelector } from '@hooks'
 import {
   DetailsList,
   FontWeights,
@@ -9,8 +11,8 @@ import {
   Stack,
   Text
 } from '@fluentui/react'
-import { CSSProperties, ReactElement } from 'react'
-import { Outlet } from 'react-router-dom'
+import { CSSProperties, Dispatch, ReactElement, SetStateAction } from 'react'
+import { Outlet, useParams } from 'react-router-dom'
 
 type Item = {
   key: string,
@@ -80,23 +82,36 @@ const AssignmentView = () => {
     }
   ]
 
+  const { _id } = useParams()
+  const course = useAppSelector(state => {
+    return state.course.courses.find(course => {
+      return course.assignments.findIndex(assign => assign._id === _id) !== -1
+    })
+  })
+  const detail = course?.assignments.find(assign => assign._id === _id)
+
+
   return (
     <section style={{ padding: '40px' }}>
       <Stack style={animationStyle}>
         <Stack.Item>
           <Text variant="xxLargePlus" style={{ fontWeight: FontWeights.regular }}>
-            阅读第一章
+            {detail?.name}
           </Text>
           <Text variant="xLarge" style={subtitleStyle}>
-            JavaScript高级程序设计
+            {course?.name}
           </Text>
         </Stack.Item>
         <Stack.Item style={stackItemStyle}>
           <Text variant="mediumPlus">
             <div dangerouslySetInnerHTML={{
-              __html: new Array(20).fill('JavaScript高级程序设计').join('<br>')
-            }}/>
+              __html: detail?.content as string
+            }} style={{ marginBottom: '10px' }} />
           </Text>
+          {/* 附件信息 */}
+          {detail?.attachments.map(attachment => (
+            <AttachmentItem {...attachment} key={attachment._id} />
+          ))}
         </Stack.Item>
         <Stack.Item style={{ marginTop: '40px' }}>
           <Text variant="xxLarge" style={{ fontWeight: FontWeights.regular }}>
@@ -107,12 +122,10 @@ const AssignmentView = () => {
           </Text>
         </Stack.Item>
         <Stack.Item style={{ ...stackItemStyle, padding: 10 }}>
-          <DetailsList items={items} onRenderRow={(props, defaultRender) => {
-            return defaultRender?.(props) as ReactElement
-          }} columns={columns} isHeaderVisible={false} selectionMode={SelectionMode.none}/>
+          <DetailsList items={items} columns={columns} isHeaderVisible={false} selectionMode={SelectionMode.none} />
         </Stack.Item>
         <Stack.Item>
-          <Outlet/>
+          <Outlet context={[[], () => 1] as [AttachmentItem[], Dispatch<SetStateAction<AttachmentItem>[]>]} />
         </Stack.Item>
       </Stack>
     </section>

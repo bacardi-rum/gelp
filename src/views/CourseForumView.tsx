@@ -1,5 +1,6 @@
 import {
-  FontWeights, List,
+  FontWeights,
+  MessageBarType,
   MotionAnimations,
   MotionDurations,
   NeutralColors,
@@ -9,9 +10,22 @@ import {
   TextField
 } from '@fluentui/react'
 import { CSSProperties, useState } from 'react'
-import CommentItem from '@components/common/CommentItem'
+import CommentItem from '@components/CommentItem'
+import { useAppDispatch, useAppSelector } from '@hooks'
+import { useParams } from 'react-router-dom'
+import { sendComment } from '@redux/slices/courseSlice'
+import moment from 'moment'
+import List from '@components/List'
+import Message from '@components/Message'
 
 const CourseForumView = () => {
+  const dispatch = useAppDispatch()
+  const { _id } = useParams()
+  const course = useAppSelector(state => state.course.courses.find(c => c._id === _id))
+  const comments = course?.comments
+
+  const user_id = useAppSelector(state => state.user._id) as string
+
   const subtitleStyle: CSSProperties = {
     fontWeight: FontWeights.regular,
     color: NeutralColors.gray120,
@@ -24,41 +38,35 @@ const CourseForumView = () => {
   }
 
   const [commentValue, setCommentValue] = useState('')
+  const handleSend = () => {
+    dispatch(sendComment({ user_id, course_id: _id!, content: commentValue, date: moment(new Date()).format('YYYY-MM-DD HH:mm:ss') }))
+      .then(() => {
+        setCommentValue('')
+        Message.show(MessageBarType.success, '发表成功。')
+      })
+  }
 
   return (
     <section style={{ padding: '40px' }}>
       <Stack style={animationStyle}>
         <Stack.Item>
           <Text variant="xxLargePlus" style={{ fontWeight: FontWeights.regular }}>讨论区</Text>
-          <Text variant="xLarge" style={subtitleStyle}>JavaScript高级程序设计</Text>
+          <Text variant="xLarge" style={subtitleStyle}>{course?.name}</Text>
         </Stack.Item>
         <Stack.Item style={{ marginTop: '10px' }}>
           <Stack horizontal>
-            <Stack.Item grow={5} style={{ marginRight: '20px', backgroundColor: '#fff' }}>
-              <List items={new Array<CommentItem>(20).fill({
-                _id: '111',
-                content: new Array(30).fill(`
-                首先我认为
-                这个应该是这样的思路：
-                
-                1. 的对抗肌肤内部上的驾考伏牛山的肌肤
-                2. 对方的咖啡机那斯洛伐克的那三大
-                `).join(''),
-                course_id: '111111',
-                date: new Date(),
-                student_id: '12324',
-                teacher_id: ''
-              })} onRenderCell={CommentItem}/>
+            <Stack.Item grow={11} style={{ marginRight: '20px', backgroundColor: '#fff' }}>
+              <List items={comments ?? []} render={CommentItem} />
             </Stack.Item>
             <Stack.Item grow={1} style={{ backgroundColor: '#fff', position: 'sticky', top: 20, height: 'fit-content' }}
-                        styles={{ root: { padding: '16px', flex: '1 0 20%' } }}>
+              styles={{ root: { padding: '16px', flex: '1 0 20%' } }}>
               <Stack>
                 <Stack.Item style={{ marginBottom: '10px' }}>
                   <TextField multiline autoAdjustHeight rows={15} value={commentValue} placeholder="请友好交流哦～"
-                             onChange={(ev) => setCommentValue((ev.target as HTMLTextAreaElement).value)}/>
+                    onChange={(ev, newVal) => setCommentValue(newVal as string)} />
                 </Stack.Item>
                 <Stack.Item>
-                  <PrimaryButton text="发送讨论" style={{ width: '100%' }}/>
+                  <PrimaryButton text="发送讨论" style={{ width: '100%' }} onClick={handleSend} />
                 </Stack.Item>
               </Stack>
             </Stack.Item>
@@ -70,3 +78,4 @@ const CourseForumView = () => {
 }
 
 export default CourseForumView
+

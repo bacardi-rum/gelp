@@ -1,0 +1,10 @@
+export const LOGIN = 'login'
+export const REGISTER = 'register'
+export const GET_COURSES_BY_USER_ID = 'get-courses-by-user-id'
+export const GET_SCHEDULES_BY_USER_ID = 'get-schedules-by-user-id'
+export const GET_LOGS_BY_USER_ID = 'get-logs-by-user-id'
+export const GET_COMING_ASSIGNMENTS_BY_USER_ID = 'get-coming-assignments-by-user-id'
+
+export const SEND_COMMENT = 'send-comment'
+export const CREATE_SCHEDULE = 'create-schedule'
+export const CREATE_LOG = 'create-log'

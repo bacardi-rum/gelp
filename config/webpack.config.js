@@ -323,11 +323,13 @@ module.exports = function (webpackEnv) {
         '@views': resolvePath('./src/views'),
         '@store': resolvePath('./src/store'),
         '@routes': resolvePath('./src/routes'),
+        '@redux': resolvePath('./src/redux'),
         '@laf': resolvePath('./src/laf'),
         '@locale': resolvePath('./src/locale'),
         '@assets': resolvePath('./src/assets'),
         '@components': resolvePath('./src/components'),
-        '@config': resolvePath('./src/config')
+        '@config': resolvePath('./src/config'),
+        '@hooks': resolvePath('./src/hooks')
       },
       plugins: [
         // Prevents users from importing files from outside of src/ (or node_modules/).

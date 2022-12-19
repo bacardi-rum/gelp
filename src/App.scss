@@ -25,9 +25,8 @@ body {
 }
 
 .gelp-course-list {
-  .ms-List-page {
+  div[class^=TitledList_gelp-titled-list__body] > div {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    //gap: 20px;
   }
 }
