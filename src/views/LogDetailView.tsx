@@ -6,6 +6,7 @@ import TitledList from '@components/TitledList/TitledList'
 import ScheduleItem from '@components/ScheduleItem'
 import LinkedCourseItem from '@components/LinkedCourseItem'
 import CourseItem from '@components/CourseItem'
+import ReactQuill from 'react-quill'
 
 const LogDetailView = () => {
   const { _id } = useParams()
@@ -30,10 +31,11 @@ const LogDetailView = () => {
           <Text variant="xxLargePlus" style={{ fontWeight: FontWeights.regular }}>{log?.name}</Text>
           <Text variant="xLarge" style={subtitleStyle}>修改日期: {log?.date}</Text>
         </Stack.Item>
-        <Stack.Item styles={{ root: { minHeight: '300px', padding: '20px', backgroundColor: '#fff' } }} style={animationStyle}>
-          <Text variant="mediumPlus">
+        <Stack.Item styles={{ root: { backgroundColor: '#fff' } }} style={animationStyle}>
+          {/* <Text variant="mediumPlus">
             <div dangerouslySetInnerHTML={{ __html: decodeURIComponent(log?.content as string) }} />
-          </Text>
+          </Text> */}
+          <ReactQuill theme="snow" value={log?.content} preserveWhitespace readOnly />
         </Stack.Item>
         <Stack.Item className="gelp-course-list">
           <TitledList style={{ paddingTop: '0', marginLeft: '0' }} bodyStyle={{ padding: '20px' }} items={log?.courses as CourseItem[]} render={CourseItem} title="关联的课程" subtitle="Linked Courses" />

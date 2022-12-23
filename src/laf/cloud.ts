@@ -27,7 +27,7 @@ class Cloud {
   }
 
   public upload(key: string, body: PutObjectCommandInput['Body'], contentType: string, functionName: string = 'get-oss-sts', bucketSuffix: string = 'public') {
-    return (this._cloud as LafCloud).invokeFunction(functionName, {})
+    return (this._cloud as LafCloud).invoke(functionName, {})
       .then(({ credentials, endpoint, region }) => {
         const s3 = new S3({
           endpoint,
@@ -42,14 +42,13 @@ class Cloud {
         })
 
         const bucket = `${this.APPID}-${bucketSuffix}`
-        const cmd = new PutObjectCommand({
+
+        return s3.putObject({
           Bucket: bucket,
           Key: key,
           Body: body,
           ContentType: contentType
         })
-
-        return s3.send(cmd)
       })
   }
 }

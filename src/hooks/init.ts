@@ -21,7 +21,7 @@ export const useInit = () => {
       }
       else {
         dispatch(loggedIn(userInfo))
-        dispatch(getCoursesByUserId(userInfo._id))
+        dispatch(getCoursesByUserId({ user_id: userInfo._id as string, identity: userInfo.identity }))
         dispatch(getSchedulesByUserId(userInfo._id))
         dispatch(getLogsByUserId(userInfo._id))
         dispatch(getAssignmentsByUserId(userInfo._id))

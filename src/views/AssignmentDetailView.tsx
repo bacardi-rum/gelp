@@ -19,7 +19,7 @@ type Item = {
   name: string,
   value: string
 }
-const AssignmentView = () => {
+const AssignmentDetailView = () => {
   const subtitleStyle: CSSProperties = {
     fontWeight: FontWeights.regular,
     color: NeutralColors.gray120,
@@ -98,9 +98,9 @@ const AssignmentView = () => {
           <Text variant="xxLargePlus" style={{ fontWeight: FontWeights.regular }}>
             {detail?.name}
           </Text>
-          <Text variant="xLarge" style={subtitleStyle}>
-            {course?.name}
-          </Text>
+          <Text variant="xLarge" style={subtitleStyle}>{course?.name}</Text>
+          <Text variant="xLarge" style={{ ...subtitleStyle, display: 'block', margin: 0 }}>开始日期: {detail?.startTime}</Text>
+          <Text variant="xLarge" style={{ ...subtitleStyle, display: 'block', margin: 0 }}>结束日期: {detail?.endTime}</Text>
         </Stack.Item>
         <Stack.Item style={stackItemStyle}>
           <Text variant="mediumPlus">
@@ -132,4 +132,4 @@ const AssignmentView = () => {
   )
 }
 
-export default AssignmentView
+export default AssignmentDetailView

@@ -72,17 +72,22 @@ const LoginView: React.FC = () => {
         Message.show(payload.ok ? MessageBarType.success : MessageBarType.error, payload.ok ? '登录成功。' : payload.error, 1000)
           .then(() => {
             if (payload.ok) {
-              const data = payload.data
+              const { token, expire, user } = payload.data
               dispatch(loggedIn({
-                token: data.token,
-                expire: data.expire,
-                ...data.user
+                token,
+                expire,
+                ...user
               }))
-              dispatch(getCoursesByUserId(data.user._id))
-              dispatch(getSchedulesByUserId(data.user._id))
-              dispatch(getLogsByUserId(data.user._id))
-              dispatch(getAssignmentsByUserId(data._id))
-              navigate('/dashboard')
+              dispatch(getCoursesByUserId({ user_id: user._id, identity: user.identity }))
+              if (user.identity === 0) {
+                dispatch(getSchedulesByUserId(user._id))
+                dispatch(getLogsByUserId(user._id))
+                dispatch(getAssignmentsByUserId(user._id))
+                navigate('/dashboard')
+              }
+              if (user.identity === 1) {
+                navigate('/course')
+              }
             }
           })
       })

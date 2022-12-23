@@ -88,5 +88,6 @@ type MedalItem = {
 type NavItem = {
   name: string,
   url: string,
-  key: string
+  key: string,
+  identity?: 0 | 1 | 2
 }

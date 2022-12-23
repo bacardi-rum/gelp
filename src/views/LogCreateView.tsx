@@ -1,7 +1,6 @@
 import React, { useState, useCallback, ReactElement, CSSProperties, FormEvent } from 'react'
 import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
-import { FontWeights, Stack, TextField, Text, NeutralColors, PrimaryButton, DefaultButton, Depths, SearchBox, MessageBarType } from '@fluentui/react'
+import { FontWeights, Stack, TextField, Text, NeutralColors, PrimaryButton, DefaultButton, Depths, SearchBox, MessageBarType, MotionAnimations, MotionDurations, IStyle } from '@fluentui/react'
 import List from '@components/List'
 import { useAppDispatch, useAppSelector } from '@hooks'
 import CourseItem from '@components/CourseItem'
@@ -29,6 +28,11 @@ const LogCreateView = () => {
     marginLeft: '10px'
   }
 
+  const animationStyle: CSSProperties = {
+    animation: MotionAnimations.slideUpIn,
+    animationDuration: MotionDurations.duration4
+  }
+
   const handleSelect = useCallback((checked: boolean, value: string) => {
     const newSelectedCourses = [...selectedCourses]
     if (checked) {
@@ -51,9 +55,9 @@ const LogCreateView = () => {
       courses: selectedCourses
     })).then(() => {
       Message.show(MessageBarType.success, '创建成功。', 1000)
-      .then(() => {
-        navigate('/log')
-      })
+        .then(() => {
+          navigate('/log')
+        })
     }).catch(() => {
       Message.show(MessageBarType.error, '创建失败。')
     })
@@ -72,17 +76,18 @@ const LogCreateView = () => {
           justifyContent: 'center',
           backgroundColor: '#fff',
           boxShadow: Depths.depth8,
-          zIndex: 999
+          zIndex: 999,
+          ...animationStyle
         }}>
           <PrimaryButton text="提交" type="submit" styles={{ root: { marginRight: '10px' } }} />
           <DefaultButton text="取消" onClick={() => navigate('/log')} />
         </div>
         <Stack tokens={{ childrenGap: 10 }}>
-          <Stack.Item>
+          <Stack.Item style={animationStyle}>
             <Text variant="xxLargePlus" style={{ fontWeight: FontWeights.regular }}>新建日志</Text>
             <Text variant="xLarge" style={subtitleStyle}>Create a Log</Text>
           </Stack.Item>
-          <Stack.Item style={{ padding: '20px', backgroundColor: '#fff' }}>
+          <Stack.Item style={{ padding: '20px', backgroundColor: '#fff', ...animationStyle }}>
             <TextField label="日志名称" required name="name" value={logName} onChange={(ev, newVal) => setLogName(newVal as string)} />
           </Stack.Item>
         </Stack>
@@ -105,7 +110,7 @@ const LogCreateView = () => {
               items={courses.filter(c => c.name.includes(courseName))}
               render={(item, index, key) => {
                 return (
-                  <Selection value={item._id ?? key} onSelect={(ev, checked) => handleSelect(checked as boolean, item._id ?? key)}>
+                  <Selection value={item._id ?? key} onSelect={(ev, checked) => handleSelect(checked as boolean, item._id ?? key)} key={key}>
                     {CourseItem(item, index, key) as ReactElement}
                   </Selection>
                 )

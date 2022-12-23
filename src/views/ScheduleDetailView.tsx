@@ -36,6 +36,8 @@ const ScheduleDetailView = () => {
         <Stack.Item style={animationStyle}>
           <Text variant="xxLargePlus" style={{ fontWeight: FontWeights.regular }}>{schedule?.name}</Text>
           {/* <Text variant="xLarge" style={subtitleStyle}>Professional JavaScript</Text> */}
+          <Text variant="xLarge" style={{ ...subtitleStyle, display: 'block', margin: 0 }}>开始日期: {schedule?.startTime}</Text>
+          <Text variant="xLarge" style={{ ...subtitleStyle, display: 'block', margin: 0 }}>结束日期: {schedule?.endTime}</Text>
         </Stack.Item>
         <Stack.Item style={{
           margin: '10px 0 0',

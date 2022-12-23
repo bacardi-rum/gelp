@@ -307,7 +307,7 @@ module.exports = function (webpackEnv) {
       // `web` extension prefixes have been added for better support
       // for React Native Web.
       extensions: paths.moduleFileExtensions
-        .map(ext => `.${ ext }`)
+        .map(ext => `.${ext}`)
         .filter(ext => useTypeScript || !ext.includes('ts')),
       alias: {
         // Support React Native Web
@@ -388,7 +388,7 @@ module.exports = function (webpackEnv) {
             },
             {
               test: /\.svg$/,
-              use: [ '@svgr/webpack'
+              use: ['@svgr/webpack'
                 // {
                 //   loader: require.resolve('@svgr/webpack'),
                 //   options: {
@@ -597,7 +597,10 @@ module.exports = function (webpackEnv) {
                 minifyURLs: true,
               },
             }
-            : undefined
+            : undefined,
+          {
+            title: 'GELP-Gamified E-Learning Platform'
+          }
         )
       ),
       // Inlines the webpack runtime script. This script is too small to warrant

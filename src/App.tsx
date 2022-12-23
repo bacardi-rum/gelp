@@ -1,7 +1,9 @@
-import React, { Suspense, useMemo } from 'react'
+import React, { KeyboardEventHandler, Suspense, useCallback, useMemo, useState } from 'react'
 import '@/App.scss'
 import Routes from '@routes'
 import {
+  DefaultButton,
+  DirectionalHint,
   FontSizes,
   getTheme,
   Icon,
@@ -9,18 +11,23 @@ import {
   IStackStyles,
   mergeStyles,
   mergeStyleSets,
+  MessageBarType,
   MotionAnimations,
   NeutralColors,
   Persona,
   PersonaSize,
+  PrimaryButton,
   SearchBox,
-  Stack
+  Stack,
+  TooltipHost
 } from '@fluentui/react'
 import navLinkGroup from '@config/nav'
 import NavBar from '@components/NavBar'
 import NavBarItem from '@components/NavBarItem'
-import { useAppSelector, useInit } from '@hooks'
+import { useAppDispatch, useAppSelector, useInit } from '@hooks'
 import { useNavigate } from 'react-router-dom'
+import { logout } from '@redux/slices/userSlice'
+import Message from '@components/Message'
 
 const theme = getTheme()
 
@@ -28,6 +35,8 @@ const App = () => {
   useInit()
   const userInfo = useAppSelector(state => state.user)
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const [courseName, setCourseName] = useState('')
 
   const stackStyles = useMemo<Partial<IStackStyles>>(() => {
     return {
@@ -51,6 +60,7 @@ const App = () => {
 
   const mergedStyleSet = mergeStyleSets({
     'persona': {
+      margin: '0 10px',
       padding: '6px',
       cursor: 'pointer',
       '&:hover': {
@@ -58,6 +68,20 @@ const App = () => {
       }
     }
   })
+
+  const handleSearch = useCallback<KeyboardEventHandler<HTMLInputElement>>((ev) => {
+    if (ev.key.toLowerCase() === 'enter') {
+      navigate(`/course/search/${courseName}`)
+    }
+  }, [courseName])
+
+  const handleLogOut = useCallback(() => {
+    dispatch(logout())
+    Message.show(MessageBarType.success, '退出成功。')
+      .then(() => {
+        window.location.reload()
+      })
+  }, [])
 
   return (
     <section>
@@ -70,20 +94,19 @@ const App = () => {
               color: NeutralColors.gray180
             }}>GELP</strong>
             <NavBar style={{ marginLeft: '2em' }}>
-              {navLinkGroup.map(navLink => {
-                if (userInfo.identity === 0) {
-                  return (
-                    <NavBarItem to={navLink.url} key={navLink.key}>
-                      {navLink.name}
-                    </NavBarItem>
-                  )
-                } else return (<></>)
-              })}
+              {navLinkGroup.filter(nav => nav.identity === 2 || nav.identity === userInfo.identity).map(navLink => (
+                <NavBarItem to={navLink.url} key={navLink.key}>
+                  {navLink.name}
+                </NavBarItem>
+              ))}
             </NavBar>
           </Stack.Item>
           <Stack.Item styles={stackItemStyles}>
-            <SearchBox placeholder="搜索课程" styles={{ root: { minWidth: '300px', marginRight: '1em' } }} />
+            {userInfo.identity === 0 && (
+              <SearchBox placeholder="搜索课程" styles={{ root: { minWidth: '300px' } }} onKeyUp={handleSearch} value={courseName} onChange={(ev, newVal) => setCourseName(newVal as string)} />
+            )}
             <Persona text={userInfo.name} size={PersonaSize.size32} onClick={() => navigate('/profile')} className={mergedStyleSet.persona} />
+            <DefaultButton onClick={handleLogOut}>退出登录</DefaultButton>
           </Stack.Item>
         </Stack>
       </header>

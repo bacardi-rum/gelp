@@ -5,6 +5,7 @@ import App from './App'
 import { initializeIcons } from '@fluentui/react'
 import { Provider } from 'react-redux'
 import store from '@redux'
+import 'react-quill/dist/quill.snow.css'
 
 initializeIcons()
 const root = ReactDOM.createRoot(

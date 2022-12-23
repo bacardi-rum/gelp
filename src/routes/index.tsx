@@ -9,13 +9,16 @@ const LoginView = lazyLoad('Login'),
   CourseView = lazyLoad('Course'),
   CourseDetailView = lazyLoad('CourseDetail'),
   CourseForumView = lazyLoad('CourseForum'),
-  AssignmentView = lazyLoad('Assignment'),
+  CourseCreateView = lazyLoad('CourseCreate'),
+  AssignmentDetailView = lazyLoad('AssignmentDetail'),
   ScheduleView = lazyLoad('Schedule'),
   LogView = lazyLoad('Log'),
   ScheduleDetailView = lazyLoad('ScheduleDetail'),
   LogDetailView = lazyLoad('LogDetail'),
   LogCreateView = lazyLoad('LogCreate'),
-  Uploader = lazy(() => import('@components/Uploader'))
+  CourseSearchView = lazyLoad('CourseSearch'),
+  ProfileView = lazyLoad('Profile')
+  // Uploader = lazy(() => import('@components/Uploader'))
 
 const Routes: React.FC = () => {
   return useRoutes([
@@ -40,6 +43,10 @@ const Routes: React.FC = () => {
       children: []
     },
     {
+      path: '/course/search/:name',
+      element: <CourseSearchView />
+    },
+    {
       path: '/course/detail/:_id',
       element: <CourseDetailView />
     },
@@ -49,13 +56,12 @@ const Routes: React.FC = () => {
     },
     {
       path: '/course/assignment/:_id',
-      element: <AssignmentView />,
-      children: [
-        {
-          path: 'upload',
-          element: <Uploader />
-        }
-      ]
+      element: <AssignmentDetailView />,
+      children: []
+    },
+    {
+      path: '/course/create',
+      element: <CourseCreateView />
     },
     {
       path: '/schedule',
@@ -76,6 +82,10 @@ const Routes: React.FC = () => {
     {
       path: '/log/create',
       element: <LogCreateView />
+    },
+    {
+      path: '/profile',
+      element: <ProfileView />
     }
   ])
 }
