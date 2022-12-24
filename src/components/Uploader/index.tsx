@@ -101,7 +101,7 @@ const Uploader: React.FC<Props> = (props) => {
         display: 'flex',
         marginBottom: 8
       }} className={mergedStyles['file-item']} key={key}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '60px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '60px', backgroundColor: NeutralColors.gray10 }}>
           {isImage && (
             <Image src={URL.createObjectURL(file)} imageFit={ImageFit.centerCover} width={60} height={60} />
           )}

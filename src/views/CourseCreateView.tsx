@@ -4,11 +4,17 @@ import { FontWeights, NeutralColors, MotionAnimations, MotionDurations, Depths, 
 import { useAppDispatch, useAppSelector } from '@hooks'
 import { APPID } from '@laf/config'
 import { createCourse, uploadCover } from '@redux/slices/courseSlice'
-import { CSSProperties, FormEventHandler, useState } from 'react'
+import { CSSProperties, FormEventHandler, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const CourseCreateView = () => {
   const navigate = useNavigate()
+  const identity = useAppSelector(state => state.user.identity)
+  
+  useEffect(() => {
+    if (identity !== 1) { navigate('/course') }
+  }, [identity])
+
   const dispatch = useAppDispatch()
   const [courseName, setCourseName] = useState('')
   const [courseContent, setCourseContent] = useState('')

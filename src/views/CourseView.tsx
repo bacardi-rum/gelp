@@ -25,7 +25,7 @@ const CourseView = () => {
             subtitle="My Courses"
             actions={(
               <div style={{ display: 'flex' }}>
-                <PrimaryButton text="新建课程" onClick={() => navigate('/course/create')} />
+                {user.identity === 1 && <PrimaryButton text="新建课程" onClick={() => navigate('/course/create')} />}
                 <SearchBox
                   value={courseName}
                   onChange={(ev, newVal) => setCourseName(newVal as string)}

@@ -31,7 +31,7 @@ type AttachmentItem = {
   name: string,
   fileType?: string,
   size?: string,
-  sizeRaw: number,
+  sizeRaw?: number,
   iconName?: string,
   url: string
 }

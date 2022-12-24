@@ -56,7 +56,13 @@ const courseSlice = createSlice({
     })[],
     cache: {} as { [key: string]: CourseItem & { user: UserInfo } }
   },
-  reducers: {},
+  reducers: {
+    assignmentCreated(state, action) {
+      const assignment = action.payload
+      const course = state.courses.find(c => c._id === assignment.course_id)
+      course?.assignments?.unshift(assignment)
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(getCoursesByUserId.fulfilled, (state, action) => { state.courses = action.payload.courses })
@@ -74,7 +80,11 @@ const courseSlice = createSlice({
         const course = action.payload.course as CourseItem & { user: UserInfo }
         state.cache[course._id] = course
       })
+      .addCase(createCourse.fulfilled, (state, action) => {
+        state.courses.unshift(action.payload.course)
+      })
   }
 })
 
 export default courseSlice.reducer
+export const { assignmentCreated } = courseSlice.actions

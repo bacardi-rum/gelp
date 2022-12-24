@@ -11,7 +11,7 @@ import {
   TeachingBubble,
   Text, TextField
 } from '@fluentui/react'
-import { NavLink, useParams } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import TitledList from '@components/TitledList/TitledList'
 import AssignmentItem from '@components/AssignmentItem'
 import { CSSProperties, useEffect, useId, useState } from 'react'
@@ -22,10 +22,11 @@ import { getCourseById } from '@redux/slices/courseSlice'
 
 const CourseDetailView = () => {
   const dispatch = useAppDispatch()
-
+  const navigate = useNavigate()
   const { _id } = useParams()
   const course = useAppSelector(state => state.course.courses.find(course => course._id === _id))
   const cachedCourse = useAppSelector(state => state.course.cache[_id ?? ''])
+  const identity = useAppSelector(state => state.user.identity)
 
   useEffect(() => {
     if (!course && !cachedCourse) {
@@ -84,7 +85,10 @@ const CourseDetailView = () => {
             <TitledList items={course?.assignments.filter(assign => assign.name.includes(assignmentName)) as any[]} render={AssignmentItem} title="任务" subtitle="Assignments"
               style={{ margin: '0px' }}
               actions={(
-                <SearchBox value={assignmentName} onChange={(ev, newVal) => setAssignmentName(newVal as string)} placeholder="搜索所有任务" styles={{ root: { minWidth: '400px' } }} />
+                <div style={{ display: 'flex', gap: 20 }}>
+                  {identity === 1 && <PrimaryButton onClick={() => navigate(`/course/assignment/create/${_id}`)}>新建任务</PrimaryButton>}
+                  <SearchBox value={assignmentName} onChange={(ev, newVal) => setAssignmentName(newVal as string)} placeholder="搜索所有任务" styles={{ root: { minWidth: '400px' } }} />
+                </div>
               )} />
           </Stack.Item>
           <Stack.Item style={{ margin: 0 }} grow={1}>

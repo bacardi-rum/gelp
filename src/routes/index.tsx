@@ -11,6 +11,7 @@ const LoginView = lazyLoad('Login'),
   CourseForumView = lazyLoad('CourseForum'),
   CourseCreateView = lazyLoad('CourseCreate'),
   AssignmentDetailView = lazyLoad('AssignmentDetail'),
+  AssignmentCreateView = lazyLoad('AssignmentCreate'),
   ScheduleView = lazyLoad('Schedule'),
   LogView = lazyLoad('Log'),
   ScheduleDetailView = lazyLoad('ScheduleDetail'),
@@ -18,7 +19,7 @@ const LoginView = lazyLoad('Login'),
   LogCreateView = lazyLoad('LogCreate'),
   CourseSearchView = lazyLoad('CourseSearch'),
   ProfileView = lazyLoad('Profile')
-  // Uploader = lazy(() => import('@components/Uploader'))
+// Uploader = lazy(() => import('@components/Uploader'))
 
 const Routes: React.FC = () => {
   return useRoutes([
@@ -53,6 +54,10 @@ const Routes: React.FC = () => {
     {
       path: '/course/forum/:_id',
       element: <CourseForumView />
+    },
+    {
+      path: '/course/assignment/create/:_id',
+      element: <AssignmentCreateView />
     },
     {
       path: '/course/assignment/:_id',
