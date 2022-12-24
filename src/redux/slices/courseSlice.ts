@@ -1,6 +1,7 @@
-import { CREATE_COURSE, GET_COURSES_BY_NAME, GET_COURSES_BY_USER_ID, GET_COURSE_BY_ID, SEND_COMMENT } from '@config/api'
+import { CREATE_COURSE, GET_COURSES_BY_NAME, GET_COURSES_BY_USER_ID, GET_COURSE_BY_ID, REQUEST_COURSE, SEND_COMMENT } from '@config/api'
 import cloud from '@laf'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import moment from 'moment'
 
 export const getCoursesByUserId = createAsyncThunk(
   'course/getByUserId',
@@ -31,7 +32,7 @@ export const getCourseById = createAsyncThunk(
 
 export const createCourse = createAsyncThunk(
   'course/create',
-  async (data: { user_id: string, name: string, content: string, coverUrl: string }) => {
+  async (data: { user_id: string, name: string, content: string, coverUrl: string, needPassword: boolean, password: string, needPermission: boolean }) => {
     return cloud.invoke(CREATE_COURSE, data)
   }
 )
@@ -40,6 +41,13 @@ export const uploadCover = createAsyncThunk(
   'course/uploadCover',
   async (data: Parameters<typeof cloud['upload']>) => {
     return cloud.upload(...data)
+  }
+)
+
+export const requestCourse = createAsyncThunk(
+  'course/request',
+  async (data: { user_id: string, course_id: string, password: string }) => {
+    return cloud.invoke(REQUEST_COURSE, {...data, date: moment(new Date()).format('YYYY-MM-DD HH:mm:ss')})
   }
 )
 

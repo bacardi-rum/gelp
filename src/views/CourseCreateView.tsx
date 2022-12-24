@@ -1,6 +1,6 @@
 import Message from '@components/Message'
 import Uploader from '@components/Uploader'
-import { FontWeights, NeutralColors, MotionAnimations, MotionDurations, Depths, PrimaryButton, DefaultButton, Stack, TextField, Text, MessageBarType } from '@fluentui/react'
+import { FontWeights, NeutralColors, MotionAnimations, MotionDurations, Depths, PrimaryButton, DefaultButton, Stack, TextField, Text, MessageBarType, Toggle } from '@fluentui/react'
 import { useAppDispatch, useAppSelector } from '@hooks'
 import { APPID } from '@laf/config'
 import { createCourse, uploadCover } from '@redux/slices/courseSlice'
@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 const CourseCreateView = () => {
   const navigate = useNavigate()
   const identity = useAppSelector(state => state.user.identity)
-  
+
   useEffect(() => {
     if (identity !== 1) { navigate('/course') }
   }, [identity])
@@ -19,6 +19,9 @@ const CourseCreateView = () => {
   const [courseName, setCourseName] = useState('')
   const [courseContent, setCourseContent] = useState('')
   const [covers, setCovers] = useState<File[]>([])
+  const [needPassword, setNeedPassword] = useState(false)
+  const [password, setPassword] = useState('')
+  const [needPermission, setNeedPermission] = useState(false)
 
   const courses = useAppSelector(state => state.course.courses)
   const user_id = useAppSelector(state => state.user._id) as string
@@ -54,10 +57,13 @@ const CourseCreateView = () => {
           user_id,
           name: courseName,
           content: courseContent,
-          coverUrl: `https://${bucket}.oss.lafyun.com/${key}`
+          coverUrl: `https://${bucket}.oss.lafyun.com/${key}`,
+          needPassword,
+          password,
+          needPermission
         }))
       })
-      .then(({ payload }) => {
+      .then(() => {
         Message.show(MessageBarType.success, '创建成功').then(() => navigate('/course'))
       }).catch(() => {
         Message.show(MessageBarType.error, '创建失败')
@@ -95,6 +101,21 @@ const CourseCreateView = () => {
               </Stack.Item>
               <Stack.Item>
                 <TextField multiline label="课程简介" name="content" rows={8} autoAdjustHeight value={courseContent} onChange={(ev, newVal) => setCourseContent(newVal as string)} />
+              </Stack.Item>
+              <Stack.Item>
+                <Stack horizontal tokens={{ childrenGap: 20 }}>
+                  <Stack.Item>
+                    <Toggle label="需要密码" checked={needPassword} onChange={(ev, checked) => setNeedPassword(checked as boolean)} />
+                  </Stack.Item>
+                  {needPassword && (
+                    <Stack.Item grow={1}>
+                      <TextField label="密码" required value={password} onChange={(ev, newVal) => setPassword(newVal as string)} />
+                    </Stack.Item>
+                  )}
+                </Stack>
+              </Stack.Item>
+              <Stack.Item>
+                <Toggle label="需要申请" checked={needPermission} onChange={(ev, checked) => setNeedPermission(checked as boolean)} />
               </Stack.Item>
               <Stack.Item>
                 <Uploader label="上传封面" accept="image/png,image/jpeg" tip='选择文件或拖动文件到此处' files={covers} onChange={setCovers} />

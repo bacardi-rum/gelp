@@ -15,3 +15,5 @@ export const CREATE_ASSIGNMENT = 'create-assignment'
 
 export const GET_COURSES_BY_NAME = 'get-courses-by-name'
 export const GET_COURSE_BY_ID = 'get-course-by-id'
+
+export const REQUEST_COURSE = 'request-course'

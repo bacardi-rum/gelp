@@ -61,7 +61,8 @@ const DashboardView: React.FC = () => {
                     {
                       previewImageSrc: course.coverUrl,
                       imageFit: ImageFit.centerCover,
-                      height: 196
+                      height: 196,
+                      width: 320
                     }
                   ]
                 }}

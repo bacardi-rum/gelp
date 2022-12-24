@@ -11,12 +11,18 @@ const navLinkGroup: NavItem[] = [
     key: 'course',
     identity: 2
   },
-  // {
-  //   name: '任务',
-  //   url: '/assignment',
-  //   key: 'assignment',
-  //   identity: 2
-  // },
+  {
+    name: '评判',
+    url: '/judgement',
+    key: 'judgement',
+    identity: 1
+  },
+  {
+    name: '申请',
+    url: '/permission',
+    key: 'permission',
+    identity: 1
+  },
   {
     name: '计划',
     url: '/schedule',

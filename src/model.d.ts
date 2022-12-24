@@ -21,6 +21,9 @@ type CourseItem = {
   coverUrl?: string,
   name: string,
   content: string,
+  needPsaaword?: boolean,
+  password: boolean,
+  needPermission?: boolean,
   published: boolean,
   deleted: boolean,
 }

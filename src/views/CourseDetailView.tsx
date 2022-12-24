@@ -1,7 +1,7 @@
 import {
   CompoundButton,
   Depths,
-  FontWeights, getTheme, List, Modal,
+  FontWeights, getTheme, List, MessageBarType, Modal,
   MotionAnimations,
   MotionDurations,
   NeutralColors,
@@ -14,16 +14,18 @@ import {
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import TitledList from '@components/TitledList/TitledList'
 import AssignmentItem from '@components/AssignmentItem'
-import { CSSProperties, useEffect, useId, useState } from 'react'
+import { CSSProperties, FormEventHandler, useEffect, useId, useRef, useState } from 'react'
 import RankingItem from '@components/RankingItem'
 import { useAppDispatch, useAppSelector } from '@hooks'
-import { getCourseById } from '@redux/slices/courseSlice'
+import { getCourseById, requestCourse } from '@redux/slices/courseSlice'
+import Message from '@components/Message'
 
 
 const CourseDetailView = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const { _id } = useParams()
+  const user_id = useAppSelector(state => state.user._id) as string
   const course = useAppSelector(state => state.course.courses.find(course => course._id === _id))
   const cachedCourse = useAppSelector(state => state.course.cache[_id ?? ''])
   const identity = useAppSelector(state => state.user.identity)
@@ -36,6 +38,7 @@ const CourseDetailView = () => {
 
   const [assignmentName, setAssignmentName] = useState('')
   const [teachingBubbleVisible, setTeachingBubbleVisible] = useState(false)
+  const [password, setPassword] = useState('')
 
   const subtitleStyle: CSSProperties = {
     fontWeight: FontWeights.regular,
@@ -46,6 +49,17 @@ const CourseDetailView = () => {
   const animationStyle: CSSProperties = {
     animation: MotionAnimations.slideUpIn,
     animationDuration: MotionDurations.duration4
+  }
+
+  const handleRequest: FormEventHandler<HTMLFormElement> = (ev) => {
+    ev.preventDefault()
+    dispatch(requestCourse({ user_id, course_id: _id as string, password }))
+      .then(({ payload }) => {
+        Message.show(payload.ok ? MessageBarType.success : MessageBarType.error, payload.ok ? (cachedCourse.needPermission ? '申请成功，请等待教师通过。' : '加入成功。') : payload.error)
+          .then(() => {
+            payload.ok && window.location.reload()
+          })
+      })
   }
 
   return (
@@ -107,21 +121,37 @@ const CourseDetailView = () => {
             cursor: 'pointer'
           }} id="request-to-join-text" onClick={() => setTeachingBubbleVisible(true)}>申请加入</Text>
           {teachingBubbleVisible && (
-            <TeachingBubble
-              target="#request-to-join-text"
-              primaryButtonProps={{
-                children: '确定',
-                onClick() { }
-              }}
-              secondaryButtonProps={{
-                children: '取消',
-                onClick() { }
-              }}
-              onDismiss={() => setTeachingBubbleVisible(false)}
-              headline="确定要加入该课程？"
-            >
-              {cachedCourse.name}, {cachedCourse.user.name}
-            </TeachingBubble>
+            <form onSubmit={handleRequest} id="gelp-request-course-form">
+              <TeachingBubble
+                target="#request-to-join-text"
+                primaryButtonProps={{
+                  children: '确定',
+                  type: 'submit',
+                  form: 'gelp-request-course-form'
+                }}
+                secondaryButtonProps={{
+                  children: '取消',
+                  onClick() { setTeachingBubbleVisible(false) }
+                }}
+                onDismiss={() => setTeachingBubbleVisible(false)}
+                headline="确定要加入该课程？"
+              >
+                <Text styles={{ root: { color: '#fff' } }}>{cachedCourse.name}, {cachedCourse.user.name}</Text>
+                {cachedCourse.needPsaaword && (
+                  <TextField styles={{ description: { color: '#fff' } }}
+                    name="password"
+                    label="密码"
+                    type="password"
+                    canRevealPassword
+                    required
+                    placeholder="申请该课程需要密码"
+                    form='gelp-request-course-form'
+                    value={password}
+                    onChange={(ev, newVal) => setPassword(newVal as string)}
+                  />
+                )}
+              </TeachingBubble>
+            </form>
           )}
         </div>
       )}
