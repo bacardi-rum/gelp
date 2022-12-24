@@ -44,12 +44,10 @@ const InfoCard: React.FC<Props> = (props) => {
         <div className={styles['gelp-info-card__body']}
           style={(props.bodyStyle as { [key: string]: string | number }) ?? {}}>
           <DocumentCardTitle styles={{ root: { height: 'unset', textOverflow: 'ellipsis' } }}
-            shouldTruncate
             title={props.title} />
           {typeof props.subtitle === 'string' && (
             <DocumentCardTitle title={props.subtitle}
               showAsSecondaryTitle
-              shouldTruncate
               styles={{ root: { padding: '0 16px 8px', height: 'unset', textOverflow: 'ellipsis' } }} />
           )}
           {typeof props.subtitle === 'object' && (
