@@ -1,4 +1,4 @@
-import { CREATE_COURSE, GET_COURSES_BY_NAME, GET_COURSES_BY_USER_ID, GET_COURSE_BY_ID, REQUEST_COURSE, SEND_COMMENT } from '@config/api'
+import { CREATE_COURSE, CREATE_MEDAL, GET_COURSES_BY_NAME, GET_COURSES_BY_USER_ID, GET_COURSE_BY_ID, REQUEST_COURSE, SEND_COMMENT } from '@config/api'
 import cloud from '@laf'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import moment from 'moment'
@@ -47,7 +47,14 @@ export const uploadCover = createAsyncThunk(
 export const requestCourse = createAsyncThunk(
   'course/request',
   async (data: { user_id: string, course_id: string, password: string }) => {
-    return cloud.invoke(REQUEST_COURSE, {...data, date: moment(new Date()).format('YYYY-MM-DD HH:mm:ss')})
+    return cloud.invoke(REQUEST_COURSE, { ...data, date: moment(new Date()).format('YYYY-MM-DD HH:mm:ss') })
+  }
+)
+
+export const createMedal = createAsyncThunk(
+  'course/createMedal',
+  async (data: Omit<MedalItem, '_id' | 'deleted'>) => {
+    return cloud.invoke(CREATE_MEDAL, data)
   }
 )
 
@@ -66,9 +73,11 @@ const courseSlice = createSlice({
   },
   reducers: {
     assignmentCreated(state, action) {
+      console.log(action.payload)
+
       const assignment = action.payload
       const course = state.courses.find(c => c._id === assignment.course_id)
-      course?.assignments?.unshift(assignment)
+      course?.assignments?.push(assignment)
     }
   },
   extraReducers(builder) {
@@ -77,7 +86,7 @@ const courseSlice = createSlice({
       .addCase(sendComment.fulfilled, (state, action) => {
         const { data, res } = action.payload
         const course = state.courses.find(c => c._id === data.course_id)
-        res.ok && course?.comments.unshift(data)
+        res.ok && course?.comments.push(data)
       })
       .addCase(getCoursesByName.fulfilled, (state, action) => {
         action.payload.courses.forEach((c: CourseItem & { user: UserInfo }) => {
@@ -89,7 +98,12 @@ const courseSlice = createSlice({
         state.cache[course._id] = course
       })
       .addCase(createCourse.fulfilled, (state, action) => {
-        state.courses.unshift(action.payload.course)
+        state.courses.push(action.payload.course)
+      })
+      .addCase(createMedal.fulfilled, (state, action) => {
+        const medal = action.payload.data
+        const course = state.courses.find(course => course._id === medal.course_id)
+        course?.medals?.push(medal)
       })
   }
 })

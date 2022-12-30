@@ -18,6 +18,8 @@ const LoginView = lazyLoad('Login'),
   LogDetailView = lazyLoad('LogDetail'),
   LogCreateView = lazyLoad('LogCreate'),
   CourseSearchView = lazyLoad('CourseSearch'),
+  PermissionView = lazyLoad('Permission'),
+  MedalCreateView = lazyLoad('MedalCreate'),
   ProfileView = lazyLoad('Profile')
 // Uploader = lazy(() => import('@components/Uploader'))
 
@@ -87,6 +89,14 @@ const Routes: React.FC = () => {
     {
       path: '/log/create',
       element: <LogCreateView />
+    },
+    {
+      path: '/permission',
+      element: <PermissionView />
+    },
+    {
+      path: '/course/create-medal/:_id',
+      element: <MedalCreateView />
     },
     {
       path: '/profile',

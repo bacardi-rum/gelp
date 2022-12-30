@@ -1,5 +1,5 @@
 import { Depths, FontSizes, FontWeights, Icon, MotionAnimations, MotionDurations, NeutralColors } from '@fluentui/react'
-import React, { ReactElement, useCallback, useMemo, useRef, useState } from 'react'
+import React, { CSSProperties, ReactElement, useCallback, useMemo, useRef, useState } from 'react'
 import styles from './index.module.scss'
 
 
@@ -10,8 +10,9 @@ type Props = {
   actions?: ReactElement[] | ReactElement,
   footer?: ReactElement[] | ReactElement,
   indicator?: boolean,
-  bodyStyle?: Partial<CSSStyleDeclaration>,
-  border?: boolean
+  bodyStyle?: CSSProperties,
+  border?: boolean,
+  style?: CSSProperties
 }
 
 const TitledCard: React.FC<Props> = (props) => {
@@ -32,10 +33,11 @@ const TitledCard: React.FC<Props> = (props) => {
   }, [])
 
   return (
-    <section className={styles['gelp-titled-card']} style={{
+    <div className={styles['gelp-titled-card']} style={{
       animation: MotionAnimations.slideUpIn,
       animationDuration: MotionDurations.duration4,
       // boxSizing: 'border-box'
+      ...(props.style ?? {})
     }}>
       {props.title && (
         <header className={styles['gelp-titled-card__header']} style={{
@@ -58,33 +60,31 @@ const TitledCard: React.FC<Props> = (props) => {
         </header>
       )}
       <div className={styles['gelp-titled-card__body']} ref={cardBody} style={{
-        ...(props.bodyStyle ?? {}) as { [key: string]: string | number },
-        ...{
-          border: props.border ? `1px solid ${NeutralColors.gray40}` : 'none',
-          minHeight: '310px',
-          boxSizing: 'border-box'
-        }
+        border: props.border ? `1px solid ${NeutralColors.gray40}` : 'none',
+        minHeight: '310px',
+        boxSizing: 'border-box',
+        ...(props.bodyStyle ?? {}) as { [key: string]: string | number }
       }}>
         {props.children}
+        {props.indicator && (
+          <Icon iconName="Forward" className={styles['gelp-titled-card__forward']} style={{
+            fontSize: FontSizes.size20,
+            color: NeutralColors.gray140,
+          }} onClick={moveForward} />
+        )}
+
+        {props.indicator && (<Icon iconName="Back" className={styles['gelp-titled-card__back']} style={{
+          fontSize: FontSizes.size20,
+          color: NeutralColors.gray140,
+        }} onClick={moveBack} />
+        )}
       </div>
       {props.footer && (
         <footer className={styles['gelp-titled-card__footer']}>
           {props.footer}
         </footer>
       )}
-      {props.indicator && (
-        <Icon iconName="Forward" className={styles['gelp-titled-card__forward']} style={{
-          fontSize: FontSizes.size20,
-          color: NeutralColors.gray140,
-        }} onClick={moveForward}/>
-      )}
-
-      {props.indicator && (<Icon iconName="Back" className={styles['gelp-titled-card__back']} style={{
-          fontSize: FontSizes.size20,
-          color: NeutralColors.gray140,
-        }} onClick={moveBack}/>
-      )}
-    </section>
+    </div>
   )
 }
 

@@ -21,7 +21,7 @@ type CourseItem = {
   coverUrl?: string,
   name: string,
   content: string,
-  needPsaaword?: boolean,
+  needPassword?: boolean,
   password: boolean,
   needPermission?: boolean,
   published: boolean,
@@ -84,7 +84,9 @@ type MedalItem = {
   _id: string,
   course_id: string,
   name: string,
+  content?: string,
   score: number,
+  iconName: string,
   deleted: boolean
 }
 

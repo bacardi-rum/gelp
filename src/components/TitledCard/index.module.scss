@@ -27,7 +27,8 @@
   &__back,
   &__forward {
     position: absolute;
-    top: 55%;
+    top: 50%;
+    transform: translateY(-50%);
     padding: 10px;
     border-radius: 20px;
     background-color: rgba($color: #fff, $alpha: .6);

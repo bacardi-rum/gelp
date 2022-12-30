@@ -24,6 +24,7 @@ import { getLogsByUserId } from '@redux/slices/logSlice'
 import { getSchedulesByUserId } from '@redux/slices/scheduleSlice'
 import { getAssignmentsByUserId } from '@redux/slices/assignmentSlice'
 import Message from '@components/Message'
+import { getPermissionsByUserId } from '@redux/slices/permissionSlice'
 
 const theme = getTheme()
 const LoginView: React.FC = () => {
@@ -32,9 +33,6 @@ const LoginView: React.FC = () => {
   const [nickname, setNickname] = useState('')
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
-  const [isMessageBarShow, setIsMessageBarShow] = useState(false)
-  const [messageBarType, setMessageBarType] = useState<MessageBarType>(MessageBarType.error)
-  const [messageBarContent, setMessageBarContent] = useState('')
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -86,6 +84,7 @@ const LoginView: React.FC = () => {
                 navigate('/dashboard')
               }
               if (user.identity === 1) {
+                dispatch(getPermissionsByUserId(user._id))
                 navigate('/course')
               }
             }
@@ -113,20 +112,6 @@ const LoginView: React.FC = () => {
         animation: MotionAnimations.slideUpIn,
         animationDuration: MotionDurations.duration4
       }}>
-        {isMessageBarShow && (
-          <MessageBar messageBarType={messageBarType}
-            styles={{
-              root: {
-                position: 'absolute',
-                top: 10,
-                left: 10,
-                right: 10,
-                width: 'unset',
-                animation: MotionAnimations.slideDownIn
-              }
-            }}
-            onDismiss={() => setIsMessageBarShow(false)}>{messageBarContent}</MessageBar>
-        )}
         <Stack.Item style={{ margin: '10px 0 15px' }}>
           <Icon iconName="CodeEdit" styles={{ root: { fontSize: FontSizes.size68 } }} />
           <strong style={{

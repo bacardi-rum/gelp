@@ -4,6 +4,7 @@ import courseReducer from '@redux/slices/courseSlice'
 import scheduleReducer from '@redux/slices/scheduleSlice'
 import logReducer from '@redux/slices/logSlice'
 import assignmentReducer from '@redux/slices/assignmentSlice'
+import permissionReducer from '@redux/slices/permissionSlice'
 
 const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ const store = configureStore({
     course: courseReducer,
     schedule: scheduleReducer,
     log: logReducer,
-    assignment: assignmentReducer
+    assignment: assignmentReducer,
+    permission: permissionReducer
   },
   devTools: true
 })

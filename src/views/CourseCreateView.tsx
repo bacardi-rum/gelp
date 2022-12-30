@@ -63,8 +63,9 @@ const CourseCreateView = () => {
           needPermission
         }))
       })
-      .then(() => {
-        Message.show(MessageBarType.success, '创建成功').then(() => navigate('/course'))
+      .then(({ payload }) => {
+        Message.show(payload.ok ? MessageBarType.success : MessageBarType.error, payload.ok ? '创建成功' : payload.error)
+          .then(() => navigate('/course'))
       }).catch(() => {
         Message.show(MessageBarType.error, '创建失败')
       })
@@ -109,7 +110,7 @@ const CourseCreateView = () => {
                   </Stack.Item>
                   {needPassword && (
                     <Stack.Item grow={1}>
-                      <TextField label="密码" required value={password} onChange={(ev, newVal) => setPassword(newVal as string)} />
+                      <TextField label="密码" required value={password} onChange={(ev, newVal) => setPassword(newVal as string)} type="password" canRevealPassword />
                     </Stack.Item>
                   )}
                 </Stack>

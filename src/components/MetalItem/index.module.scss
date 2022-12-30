@@ -1,0 +1,31 @@
+.gelp-medal-item {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 130px;
+  padding: 0 10px;
+  gap: 10px;
+  border: 1px solid #edebe9;
+  box-sizing: border-box;
+
+  &__text {
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &:hover {
+    border-color: #c8c6c4;
+    cursor: pointer;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid #c8c6c4;
+    }
+  }
+}

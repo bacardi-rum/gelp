@@ -19,6 +19,8 @@ import RankingItem from '@components/RankingItem'
 import { useAppDispatch, useAppSelector } from '@hooks'
 import { getCourseById, requestCourse } from '@redux/slices/courseSlice'
 import Message from '@components/Message'
+import TitledCard from '@components/TitledCard'
+import MedalItem from '@components/MetalItem'
 
 
 const CourseDetailView = () => {
@@ -34,7 +36,7 @@ const CourseDetailView = () => {
     if (!course && !cachedCourse) {
       dispatch(getCourseById(_id as string))
     }
-  }, [])
+  }, [course, cachedCourse])
 
   const [assignmentName, setAssignmentName] = useState('')
   const [teachingBubbleVisible, setTeachingBubbleVisible] = useState(false)
@@ -79,6 +81,19 @@ const CourseDetailView = () => {
             secondaryText={course?.user.nickname ?? cachedCourse?.user.nickname}
             size={PersonaSize.size40} />
           <Text variant="mediumPlus">{course?.content ?? cachedCourse?.content}</Text>
+        </Stack.Item>
+        <Stack.Item>
+          <TitledCard title="勋章墙" subtitle="Medals"
+            // indicator
+            style={{ marginLeft: 0 }}
+            bodyStyle={{ height: '130px', minHeight: 'initial' }}
+            actions={identity === 1 ? (
+              <PrimaryButton onClick={() => navigate(`/course/create-medal/${_id}`)}>新建勋章</PrimaryButton>
+            ) : undefined} >
+            {course?.medals?.map(medal => (
+              <MedalItem name={medal.name} iconName={medal.iconName} score={medal.score} content={medal.content as string} />
+            ))}
+          </TitledCard>
         </Stack.Item>
       </Stack>
       {course && (<>
@@ -137,7 +152,7 @@ const CourseDetailView = () => {
                 headline="确定要加入该课程？"
               >
                 <Text styles={{ root: { color: '#fff' } }}>{cachedCourse.name}, {cachedCourse.user.name}</Text>
-                {cachedCourse.needPsaaword && (
+                {cachedCourse.needPassword && (
                   <TextField styles={{ description: { color: '#fff' } }}
                     name="password"
                     label="密码"

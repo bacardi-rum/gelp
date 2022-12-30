@@ -21,7 +21,7 @@ const schedileSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(getSchedulesByUserId.fulfilled, (state, action) => action.payload)
       .addCase(createSchedule.fulfilled, (state, action) => {
-        state.schedules.unshift(action.payload.data)
+        state.schedules.push(action.payload.data)
       })
   }
 })

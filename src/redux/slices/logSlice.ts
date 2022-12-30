@@ -25,7 +25,7 @@ const logSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(getLogsByUserId.fulfilled, (state, action) => action.payload)
     .addCase(createLog.fulfilled, (state, action) => {
-      state.logs.unshift(action.payload.data)
+      state.logs.push(action.payload.data)
     })
   }
 })

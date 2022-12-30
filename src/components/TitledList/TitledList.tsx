@@ -39,10 +39,11 @@ const TitledList: React.FC<Props> = (props) => {
         {props.actions && <div className={styles[`${className}__header-right`]}>{props.actions}</div>}
       </header>
       <div className={styles[`${className}__body`]} style={{
-        border: props.border ? `1px solid ${NeutralColors.gray40}` : 'none'
+        border: props.border ? `1px solid ${NeutralColors.gray40}` : 'none',
+        ...(props.bodyStyle ?? {}) as { [key: string]: string | number }
       }}>
         <List items={props.items} render={props.render}
-              style={{ boxSizing: 'border-box', ...(props.bodyStyle ?? {}) as { [key: string]: string | number } }}/>
+          style={{ boxSizing: 'border-box' }} />
       </div>
     </section>
   )

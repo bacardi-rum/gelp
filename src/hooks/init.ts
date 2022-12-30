@@ -6,6 +6,7 @@ import { useAppDispatch } from './redux'
 import { getSchedulesByUserId } from '@redux/slices/scheduleSlice'
 import { getLogsByUserId } from '@redux/slices/logSlice'
 import { getAssignmentsByUserId } from '@redux/slices/assignmentSlice'
+import { getPermissionsByUserId } from '@redux/slices/permissionSlice'
 
 
 export const useInit = () => {
@@ -22,9 +23,14 @@ export const useInit = () => {
       else {
         dispatch(loggedIn(userInfo))
         dispatch(getCoursesByUserId({ user_id: userInfo._id as string, identity: userInfo.identity }))
-        dispatch(getSchedulesByUserId(userInfo._id))
-        dispatch(getLogsByUserId(userInfo._id))
-        dispatch(getAssignmentsByUserId(userInfo._id))
+        if (userInfo.identity === 0) {
+          dispatch(getSchedulesByUserId(userInfo._id))
+          dispatch(getLogsByUserId(userInfo._id))
+          dispatch(getAssignmentsByUserId(userInfo._id))
+        }
+        if (userInfo.identity === 1) {
+          dispatch(getPermissionsByUserId(userInfo._id))
+        }
       }
     }
   }, [])
