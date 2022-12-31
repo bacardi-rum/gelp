@@ -30,7 +30,7 @@ const CourseDetailView = () => {
   const user_id = useAppSelector(state => state.user._id) as string
   const course = useAppSelector(state => state.course.courses.find(course => course._id === _id))
   const cachedCourse = useAppSelector(state => state.course.cache[_id ?? ''])
-  const identity = useAppSelector(state => state.user.identity)
+  const identity = useAppSelector(state => state.user.identity)  
 
   useEffect(() => {
     if (!course && !cachedCourse) {

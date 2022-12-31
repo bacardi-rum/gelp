@@ -36,7 +36,8 @@ type AttachmentItem = {
   size?: string,
   sizeRaw?: number,
   iconName?: string,
-  url: string
+  url: string,
+  user_id?: string
 }
 
 type AssignmentItem = {
@@ -49,8 +50,12 @@ type AssignmentItem = {
   endTime: string,
   published: boolean,
   deleted: boolean,
-  attachmentCount?: number
-  // 0未提交 1已提交未评分 2已提交已评分 3作业已过期
+  attachmentCount?: number,
+  scored?: number,
+  state?: 0 | 1 | 2 | 3,
+  done?: boolean
+  // 0未提交 1已提交未评分 2已提交已评分 3作业已过期,
+  submissionCount?: number
 }
 
 type ScheduleItem = {

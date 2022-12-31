@@ -20,6 +20,8 @@ const LoginView = lazyLoad('Login'),
   CourseSearchView = lazyLoad('CourseSearch'),
   PermissionView = lazyLoad('Permission'),
   MedalCreateView = lazyLoad('MedalCreate'),
+  JudgementView = lazyLoad('Judgement'),
+  JudgementDetailView = lazyLoad('JudgementDetail'),
   ProfileView = lazyLoad('Profile')
 // Uploader = lazy(() => import('@components/Uploader'))
 
@@ -97,6 +99,14 @@ const Routes: React.FC = () => {
     {
       path: '/course/create-medal/:_id',
       element: <MedalCreateView />
+    },
+    {
+      path: '/judgement',
+      element: <JudgementView />
+    },
+    {
+      path: '/judgement/detail/:_id',
+      element: <JudgementDetailView />
     },
     {
       path: '/profile',

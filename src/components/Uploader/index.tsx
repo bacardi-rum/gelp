@@ -13,7 +13,8 @@ type Props = {
   name?: string,
   tip?: string,
   accept?: string,
-  onChange?: (files: File[]) => void
+  onChange?: (files: File[]) => void,
+  disabled?: boolean
 }
 
 const getSize = (size: number) => {
@@ -36,17 +37,17 @@ const Uploader: React.FC<Props> = (props) => {
 
   const mergedStyleSet = mergeStyleSets({
     body: {
-      cursor: 'pointer',
+      cursor: props.disabled ? 'default' : 'pointer',
       display: props.multiple ? 'block' : 'flex',
       '&:hover': {
-        border: `2px solid ${theme.palette.themePrimary}`,
-        color: theme.palette.themePrimary
+        border: props.disabled ? '' : `2px solid ${theme.palette.themePrimary}`,
+        color: props.disabled ? '' : theme.palette.themePrimary
       }
     }
   })
 
   const handleClick = () => {
-    fileInput.current?.click()
+    !props.disabled && fileInput.current?.click()
   }
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (ev) => {
@@ -111,7 +112,7 @@ const Uploader: React.FC<Props> = (props) => {
         </div>
         <div style={{ flex: 1, padding: '0 8px', whiteSpace: 'nowrap', textOverflow: 'ellipsis', lineHeight: '60px' }}>{file.name}</div>
         <div style={{ padding: '0 8px', lineHeight: '60px' }}>{getSize(file.size)}</div>
-        {typeof index !== 'undefined' && (
+        {typeof index !== 'undefined' && !props.disabled && (
           <div style={{ padding: '0 8px', lineHeight: '60px' }}>
             <PrimaryButton onClick={(ev) => {
               ev.stopPropagation()

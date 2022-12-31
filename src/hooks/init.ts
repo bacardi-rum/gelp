@@ -7,6 +7,7 @@ import { getSchedulesByUserId } from '@redux/slices/scheduleSlice'
 import { getLogsByUserId } from '@redux/slices/logSlice'
 import { getAssignmentsByUserId } from '@redux/slices/assignmentSlice'
 import { getPermissionsByUserId } from '@redux/slices/permissionSlice'
+import { getJudgementsByUserId } from '@redux/slices/judgementSlice'
 
 
 export const useInit = () => {
@@ -30,6 +31,7 @@ export const useInit = () => {
         }
         if (userInfo.identity === 1) {
           dispatch(getPermissionsByUserId(userInfo._id))
+          dispatch(getJudgementsByUserId(userInfo._id))
         }
       }
     }

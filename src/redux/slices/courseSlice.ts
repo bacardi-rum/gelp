@@ -64,7 +64,7 @@ const courseSlice = createSlice({
     courses: [] as (CourseItem & {
       date: string,
       user: UserInfo,
-      assignments: (AssignmentItem & { attachments: AttachmentItem[] })[],
+      assignments: (AssignmentItem & { attachments: AttachmentItem[], submissions: AttachmentItem[] })[],
       medals: MedalItem[],
       comments: (CommentItem & { user: UserInfo })[],
       rankings: UserInfo[]
@@ -73,11 +73,17 @@ const courseSlice = createSlice({
   },
   reducers: {
     assignmentCreated(state, action) {
-      console.log(action.payload)
-
       const assignment = action.payload
       const course = state.courses.find(c => c._id === assignment.course_id)
       course?.assignments?.push(assignment)
+    },
+    submissionsUploaded(state, action) {
+      const { course_id, submissions } = action.payload
+      const course = state.courses.find(c => c._id === course_id)
+      if (course) {
+        course.assignments.length = 0
+        course.assignments.push(...submissions)
+      }
     }
   },
   extraReducers(builder) {
@@ -109,4 +115,4 @@ const courseSlice = createSlice({
 })
 
 export default courseSlice.reducer
-export const { assignmentCreated } = courseSlice.actions
+export const { assignmentCreated, submissionsUploaded } = courseSlice.actions

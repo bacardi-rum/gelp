@@ -1,4 +1,4 @@
-import { CREATE_ASSIGNMENT, GET_COMING_ASSIGNMENTS_BY_USER_ID, GET_SCHEDULES_BY_USER_ID } from '@config/api'
+import { CREATE_ASSIGNMENT, GET_COMING_ASSIGNMENTS_BY_USER_ID, GET_SCHEDULES_BY_USER_ID, UPLOAD_SUBMISSIONS } from '@config/api'
 import cloud from '@laf'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
@@ -29,6 +29,13 @@ export const uploadAttachments = createAsyncThunk(
   }
 )
 
+export const uploadSubmissions = createAsyncThunk(
+  'course/uploadSubmissions',
+  async (data: { course_id: string, assignment_id: string, user_id: string, attachmentKeys: { key: string, name: string }[] }) => {
+    return cloud.invoke(UPLOAD_SUBMISSIONS, data)
+  }
+)
+
 const assignmentSlice = createSlice({
   name: 'assignment',
   initialState: {
@@ -36,7 +43,8 @@ const assignmentSlice = createSlice({
   },
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(getAssignmentsByUserId.fulfilled, (state, action) => action.payload)
+    builder
+    .addCase(getAssignmentsByUserId.fulfilled, (state, action) => action.payload)
   }
 })
 

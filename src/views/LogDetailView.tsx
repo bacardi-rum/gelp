@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom'
 import { useAppSelector } from '@hooks'
 import TitledList from '@components/TitledList/TitledList'
 import ScheduleItem from '@components/ScheduleItem'
-import LinkedCourseItem from '@components/LinkedCourseItem'
 import CourseItem from '@components/CourseItem'
 import ReactQuill from 'react-quill'
 

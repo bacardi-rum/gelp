@@ -51,6 +51,30 @@ class Cloud {
         })
       })
   }
+
+  public delete(key: string, functionName: string = 'get-oss-sts', bucketSuffix: string = 'public') {
+    return (this._cloud as LafCloud).invoke(functionName, {})
+      .then(({ credentials, endpoint, region }) => {
+        const s3: S3 = new S3({
+          endpoint,
+          region,
+          credentials: {
+            accessKeyId: credentials.AccessKeyId,
+            secretAccessKey: credentials.SecretAccessKey,
+            sessionToken: credentials.SessionToken,
+            expiration: credentials.Expiration
+          },
+          forcePathStyle: true
+        })
+
+        const bucket = `${this.APPID}-${bucketSuffix}`
+
+        return s3.deleteObject({
+          Bucket: bucket,
+          Key: key
+        })
+      })
+  }
 }
 
 export default Cloud
