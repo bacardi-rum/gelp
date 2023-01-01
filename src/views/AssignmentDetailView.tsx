@@ -85,7 +85,7 @@ const AssignmentDetailView = () => {
     }
   ]
 
-  const items: Item[] = [
+  const items: Item[] = user.identity === 0 ? [
     {
       key: 'done_state',
       name: '完成状态',
@@ -106,9 +106,9 @@ const AssignmentDetailView = () => {
       name: '剩余时间',
       value: moment(detail?.endTime).fromNow(true)
     }
-  ]
+  ] : []
 
-  const teacherItems: Item[] = [
+  const teacherItems: Item[] = user.identity === 1 ? [
     {
       key: 'total',
       name: '总人数',
@@ -129,13 +129,13 @@ const AssignmentDetailView = () => {
       name: '剩余时间',
       value: moment(detail?.endTime).fromNow(true)
     }
-  ]
+  ] : []
 
   const [submissions, setSubmissions] = useState<File[]>([])
   const [uploaderDisabled, setUploaderDisabled] = useState(true)
 
   useEffect(() => {
-    if (detail?.submissions) {
+    if (detail && detail.state !== 2) {
       const files = detail?.submissions.map(submission => {
         return fetch(submission.url)
           .then(res => Promise.all([res.blob(), res.headers.get('content-type')]))
@@ -145,7 +145,7 @@ const AssignmentDetailView = () => {
       })
       Promise.all(files as Promise<File>[] ?? []).then(setSubmissions)
     }
-  }, [detail?.submissions])
+  }, [detail?.state])
 
   const handleUpload = () => {
     Promise.all(detail!.submissions.map(sub => {
@@ -208,13 +208,15 @@ const AssignmentDetailView = () => {
                 <DetailsList items={items} columns={columns} isHeaderVisible={false} selectionMode={SelectionMode.none} />
               </TitledCard>
             </Stack.Item>
-            <Stack.Item>
-              <TitledCard title="提交物" subtitle="Submissions" style={{ marginLeft: 0 }} actions={(
-                uploaderDisabled ? (<PrimaryButton onClick={() => setUploaderDisabled(false)}>修改</PrimaryButton>) : (<DefaultButton onClick={handleUpload}>上传</DefaultButton>)
-              )}>
-                <Uploader multiple files={submissions} disabled={uploaderDisabled} onChange={setSubmissions} />
-              </TitledCard>
-            </Stack.Item>
+            {detail?.state !== 3 && detail?.state !== 2 && (
+              <Stack.Item>
+                <TitledCard title="提交物" subtitle="Submissions" style={{ marginLeft: 0 }} actions={(
+                  uploaderDisabled ? (<PrimaryButton onClick={() => setUploaderDisabled(false)}>修改</PrimaryButton>) : (<DefaultButton onClick={handleUpload}>上传</DefaultButton>)
+                )}>
+                  <Uploader multiple files={submissions} disabled={uploaderDisabled} onChange={setSubmissions} />
+                </TitledCard>
+              </Stack.Item>
+            )}
           </>
         )}
         {user.identity === 1 && (

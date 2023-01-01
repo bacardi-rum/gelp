@@ -42,10 +42,10 @@ const JudgementView = () => {
     <section style={{ padding: '0 40px 40px 20px' }}>
       <Stack horizontal>
         <Stack.Item>
-          <TitledList title="我的课程" items={courses} render={CourseItem} />
+          <TitledList title="我的课程" subtitle="My Courses" items={courses} render={CourseItem} />
         </Stack.Item>
         <Stack.Item grow={1}>
-          <TitledList title="课程下的任务" items={courses[selectedCourse]?.assignments ?? []} render={AssignmentItem} />
+          <TitledList title="课程下的任务" subtitle="Assignments" items={courses[selectedCourse]?.assignments ?? []} render={AssignmentItem} />
         </Stack.Item>
       </Stack>
     </section>

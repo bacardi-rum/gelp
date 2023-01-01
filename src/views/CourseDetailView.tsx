@@ -69,7 +69,7 @@ const CourseDetailView = () => {
       <Stack style={animationStyle}>
         <Stack.Item>
           <Text variant="xxLargePlus" style={{ fontWeight: FontWeights.regular }}>{course?.name ?? cachedCourse?.name}</Text>
-          {/* <Text variant="xLarge" style={subtitleStyle}>Professional JavaScript</Text> */}
+          <Text variant="xLarge" style={subtitleStyle}>{`已获总分: ${course?.assignments.reduce((pv, cv) => pv + (cv.scored ?? 0), 0)}`}</Text>
         </Stack.Item>
         <Stack.Item style={{
           margin: '10px 0 0',

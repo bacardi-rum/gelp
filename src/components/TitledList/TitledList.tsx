@@ -17,12 +17,12 @@ type Props = {
 const className = 'gelp-titled-list'
 const TitledList: React.FC<Props> = (props) => {
   return (
-    <section className={styles[className]} style={{
+    <div className={styles[className]} style={{
       animation: MotionAnimations.slideUpIn,
       animationDuration: MotionDurations.duration4,
       ...(props.style ?? {}) as { [key: string]: string | number }
     }}>
-      <header className={styles[`${className}__header`]} style={{
+      <div className={styles[`${className}__header`]} style={{
         fontSize: FontSizes.size28,
         fontWeight: FontWeights.regular,
         color: NeutralColors.gray160
@@ -37,7 +37,7 @@ const TitledList: React.FC<Props> = (props) => {
           }}>{props.subtitle}</span>
         </div>
         {props.actions && <div className={styles[`${className}__header-right`]}>{props.actions}</div>}
-      </header>
+      </div>
       <div className={styles[`${className}__body`]} style={{
         border: props.border ? `1px solid ${NeutralColors.gray40}` : 'none',
         ...(props.bodyStyle ?? {}) as { [key: string]: string | number }
@@ -45,7 +45,7 @@ const TitledList: React.FC<Props> = (props) => {
         <List items={props.items} render={props.render}
           style={{ boxSizing: 'border-box' }} />
       </div>
-    </section>
+    </div>
   )
 }
 

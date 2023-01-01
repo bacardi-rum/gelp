@@ -22,5 +22,6 @@ export const GET_COURSE_BY_ID = 'get-course-by-id'
 export const REQUEST_COURSE = 'request-course'
 
 export const PERMIT = 'permit'
+export const JUDGE = 'judge'
 
 export const UPLOAD_SUBMISSIONS = 'upload-submissions'
