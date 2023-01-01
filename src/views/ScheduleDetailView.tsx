@@ -26,6 +26,7 @@ const ScheduleDetailView = () => {
   }, [])
 
   const decode = function (str: string) {
+    if (typeof str !== 'string') return ''
     if (str.startsWith('\n')) str = str.substring(1)
     return str.replaceAll(/\n/g, '<br>')
   }
