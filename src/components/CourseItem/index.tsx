@@ -35,7 +35,8 @@ function CourseItem(item: CourseItem & { user: UserInfo }, index: number, key?: 
             previewImageSrc: item.coverUrl,
             imageFit: ImageFit.centerCover,
             // previewIconProps: { iconName: 'Education', styles: { root: { fontSize: FontSizes.size32 } } },
-            height: 180
+            height: 180,
+            width: 320
           }
         ]} />
         <DocumentCardTitle title={item.name} className={styles.title} />

@@ -1,5 +1,6 @@
 $gray20: #f3f2f1;
 $gray10: #faf9f8;
+
 body,
 h1,
 h2,
@@ -25,8 +26,29 @@ body {
 }
 
 .gelp-course-list {
-  div[class^=TitledList_gelp-titled-list__body] > div {
+  div[class^=TitledList_gelp-titled-list__body]>div {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    // grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 25%);
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .gelp-course-list {
+      div[class^=TitledList_gelp-titled-list__body]>div {
+        display: grid;
+        // grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 33.33%);
+      }
+    }
+}
+
+@media screen and (max-width: 768px) {
+  .gelp-course-list {
+    div[class^=TitledList_gelp-titled-list__body]>div {
+      display: grid;
+      // grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(2, 50%);
+    }
   }
 }
