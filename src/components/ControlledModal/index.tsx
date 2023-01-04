@@ -1,4 +1,5 @@
 import {
+  Depths,
   FontSizes,
   FontWeights, getTheme, IButtonStyles,
   IconButton,
@@ -56,10 +57,10 @@ const ControlledModal: React.FC<Props> = (props) => {
 
   return (
     <Modal isOpen={props.isOpen} isBlocking={props.isBlocking ?? false} onDismiss={() => props.handleDismiss(false)}
-           containerClassName={`${styles[`${className}__container`]} ${contentStyles.container}`}
-           styles={{
-             root: { animation: MotionAnimations.fadeIn, animationDuration: MotionDurations.duration1 }
-           }}>
+      containerClassName={`${styles[`${className}__container`]} ${contentStyles.container}`}
+      styles={{
+        root: { animation: MotionAnimations.fadeIn, animationDuration: MotionDurations.duration1 }
+      }}>
       <div className={`${styles[`${className}__header`]} ${contentStyles.header}`}>
         <span>{props.header}</span>
         <IconButton
@@ -73,7 +74,7 @@ const ControlledModal: React.FC<Props> = (props) => {
         {props.body}
       </div>
       {props.footer && (
-        <div className={`${styles[`${className}__footer`]}`}>
+        <div className={`${styles[`${className}__footer`]}`} style={{ boxShadow: Depths.depth8 }}>
           {props.footer}
         </div>
       )}

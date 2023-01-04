@@ -1,5 +1,5 @@
 import { useOutletContext } from 'react-router-dom'
-import React, { ChangeEventHandler, Dispatch, DragEventHandler, SetStateAction, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { ChangeEventHandler, CSSProperties, Dispatch, DragEventHandler, SetStateAction, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { DefaultButton, FontSizes, getTheme, Icon, Image, ImageFit, Label, mergeStyleSets, NeutralColors, PrimaryButton, Text } from '@fluentui/react'
 import { useId } from '@fluentui/react-hooks'
 import styles from './index.module.scss'
@@ -14,7 +14,8 @@ type Props = {
   tip?: string,
   accept?: string,
   onChange?: (files: File[]) => void,
-  disabled?: boolean
+  disabled?: boolean,
+  bodyStyle?: CSSProperties
 }
 
 const getSize = (size: number) => {
@@ -129,7 +130,8 @@ const Uploader: React.FC<Props> = (props) => {
       {props.label && (
         <Label required={props.reqiured} className={styles[`${className}__label`]}>{props.label}</Label>
       )}
-      <div className={styles[`${className}__body`] + ` ${mergedStyleSet.body}`} onClick={handleClick} onDragOver={handleDragOver} onDrop={handleDrop} onDragLeave={handleDragLeave}>
+      <div className={styles[`${className}__body`] + ` ${mergedStyleSet.body}`} style={props.bodyStyle ?? {}}
+        onClick={handleClick} onDragOver={handleDragOver} onDrop={handleDrop} onDragLeave={handleDragLeave}>
         {(props.files.length === 0) && (
           <div className={styles[`${className}__body-icon`]}>
             <Icon iconName="Add" />

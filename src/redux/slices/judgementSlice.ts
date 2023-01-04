@@ -22,7 +22,7 @@ const judgementSlice = createSlice({
     judgements: {} as {
       [course_id: string]: {
         [assignment_id: string]: {
-          submitted: (UserInfo & { submissions: AttachmentItem[] })[],
+          submitted: (UserInfo & { submissions: AttachmentItem[], state: 0 | 1 | 2 | 3 })[],
           unsubmitted: number
         }
       }
@@ -33,6 +33,12 @@ const judgementSlice = createSlice({
     builder
       .addCase(getJudgementsByUserId.fulfilled, (state, action) => {
         state.judgements = action.payload
+      })
+      .addCase(judge.fulfilled, (state, action) => {
+        const { assignment_id, course_id, user_id } = action.payload
+        if (assignment_id && course_id && user_id) {
+          state.judgements[course_id][assignment_id].submitted.find(sub => sub._id === user_id)!.state = 2
+        }
       })
   }
 })

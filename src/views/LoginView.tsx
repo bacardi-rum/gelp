@@ -72,9 +72,9 @@ const LoginView: React.FC = () => {
             if (payload.ok) {
               const { token, expire, user } = payload.data
               dispatch(loggedIn({
+                ...user,
                 token,
                 expire,
-                ...user
               }))
               dispatch(getCoursesByUserId({ user_id: user._id, identity: user.identity }))
               if (user.identity === 0) {

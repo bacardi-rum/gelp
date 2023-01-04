@@ -1,0 +1,20 @@
+.gelp-ranking-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #edebe9;
+
+  &:hover {
+    border-color: #c8c6c4;
+    cursor: pointer;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid #c8c6c4;
+    }
+  }
+}

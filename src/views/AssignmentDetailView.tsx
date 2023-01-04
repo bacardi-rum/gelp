@@ -85,7 +85,7 @@ const AssignmentDetailView = () => {
     }
   ]
 
-  const items: Item[] = user.identity === 0 ? [
+  const items: Item[] = user?.identity === 0 ? [
     {
       key: 'done_state',
       name: '完成状态',
@@ -108,21 +108,21 @@ const AssignmentDetailView = () => {
     }
   ] : []
 
-  const teacherItems: Item[] = user.identity === 1 ? [
+  const teacherItems: Item[] = user?.identity === 1 ? [
     {
       key: 'total',
       name: '总人数',
-      value: (judgement.submitted.length + judgement.unsubmitted).toString()
+      value: (judgement?.submitted.length + judgement?.unsubmitted).toString()
     },
     {
       key: 'submitted',
       name: '已提交人数',
-      value: judgement.submitted.length.toString()
+      value: judgement?.submitted.length.toString()
     },
     {
       key: 'unsubmitted',
       name: '未提交人数',
-      value: judgement.unsubmitted.toString()
+      value: judgement?.unsubmitted.toString()
     },
     {
       key: 'remaining_time',
@@ -135,7 +135,7 @@ const AssignmentDetailView = () => {
   const [uploaderDisabled, setUploaderDisabled] = useState(true)
 
   useEffect(() => {
-    if (detail && detail.state !== 2) {
+    if (detail?.submissions && detail.state !== 2 && user && user.identity === 1) {
       const files = detail?.submissions.map(submission => {
         return fetch(submission.url)
           .then(res => Promise.all([res.blob(), res.headers.get('content-type')]))
@@ -145,7 +145,7 @@ const AssignmentDetailView = () => {
       })
       Promise.all(files as Promise<File>[] ?? []).then(setSubmissions)
     }
-  }, [detail?.state])
+  }, [detail?.state, user?.identity, detail?.submissions])
 
   const handleUpload = () => {
     Promise.all(detail!.submissions.map(sub => {

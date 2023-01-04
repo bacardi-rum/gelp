@@ -81,7 +81,7 @@ const ScheduleView = () => {
         <form id="gelp-create-schedule-form" onSubmit={handleCreate}>
           <TextField label="名称" name="name" placeholder="计划名称" required styles={{ root: { marginBottom: 8 } }} value={createName} onChange={(ev, val) => setCreateName(val as string)} />
           <TextField label="内容简介" name="content" placeholder="计划内容简介" multiline rows={5} autoAdjustHeight styles={{ root: { marginBottom: 8 } }} value={createContent} onChange={(ev, val) => setCreateContent(val as string)} />
-          <Stack horizontal tokens={{ childrenGap: 20 }} styles={{ root: { marginBottom: 8 } }}>
+          <Stack horizontal tokens={{ childrenGap: 10 }} styles={{ root: { marginBottom: 8 } }}>
             <Stack.Item grow={1}>
               <DatePicker
                 label="开始日期"
@@ -151,7 +151,7 @@ const ScheduleView = () => {
           marginTop: '10px',
           backgroundColor: '#fff',
         }}
-        tokens={{ childrenGap: 20 }}>
+        tokens={{ childrenGap: 10 }}>
         <Stack.Item grow={2}>
           <TextField placeholder="搜索全部计划" label="计划名称" value={scheduleName} onChange={(ev, newVal) => setScheduleName(newVal as string)} />
         </Stack.Item>

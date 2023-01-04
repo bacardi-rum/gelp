@@ -111,6 +111,10 @@ const Routes: React.FC = () => {
     {
       path: '/profile',
       element: <ProfileView />
+    },
+    {
+      path: '/profile/:_id',
+      element: <ProfileView />
     }
   ])
 }

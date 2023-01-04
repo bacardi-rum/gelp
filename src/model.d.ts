@@ -7,10 +7,11 @@ type UserInfo = {
   password: string,
   phone?: string,
   age?: number,
+  intro?: string,
   grade?: number,
+  class?: string | number,
   email: string,
-  score?: number,
-  level?: number
+  score?: number
   token?: string,
   expire?: number
 }

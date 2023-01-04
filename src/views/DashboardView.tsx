@@ -27,9 +27,7 @@ const DashboardView: React.FC = () => {
   const courses = useAppSelector(state => state.course.courses)
   const schedules = useAppSelector(state => state.schedule.schedules)
   const logs = useAppSelector(state => state.log.logs)
-  const assignments = useAppSelector(state => state.assignment.assignments)
-  console.log(assignments)
-
+  const assignments = useAppSelector(state => state.assignment.assignments)  
 
   const [level, scoreRemaining] = getLevel(userInfo.score ?? 0)
   const totalScore = getScoreByLevel(level)

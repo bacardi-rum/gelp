@@ -30,7 +30,7 @@ const CourseDetailView = () => {
   const user_id = useAppSelector(state => state.user._id) as string
   const course = useAppSelector(state => state.course.courses.find(course => course._id === _id))
   const cachedCourse = useAppSelector(state => state.course.cache[_id ?? ''])
-  const identity = useAppSelector(state => state.user.identity)  
+  const identity = useAppSelector(state => state.user.identity)
 
   useEffect(() => {
     if (!course && !cachedCourse) {
@@ -69,7 +69,9 @@ const CourseDetailView = () => {
       <Stack style={animationStyle}>
         <Stack.Item>
           <Text variant="xxLargePlus" style={{ fontWeight: FontWeights.regular }}>{course?.name ?? cachedCourse?.name}</Text>
-          <Text variant="xLarge" style={subtitleStyle}>{`已获总分: ${course?.assignments.reduce((pv, cv) => pv + (cv.scored ?? 0), 0)}`}</Text>
+          {identity === 0 && (
+            <Text variant="xLarge" style={subtitleStyle}>{`已获总分: ${course?.assignments.reduce((pv, cv) => pv + (cv.scored ?? 0), 0)}`}</Text>
+          )}
         </Stack.Item>
         <Stack.Item style={{
           margin: '10px 0 0',

@@ -7,7 +7,7 @@ import { FontWeights, mergeStyleSets, MessageBarType, NeutralColors, PrimaryButt
 import { useAppDispatch, useAppSelector } from '@hooks'
 import { RootState } from '@redux'
 import { judge } from '@redux/slices/judgementSlice'
-import React, { CSSProperties, FormEventHandler, useCallback, useState } from 'react'
+import React, { CSSProperties, FormEventHandler, useCallback, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 const JudgementDetailView = () => {
@@ -69,6 +69,10 @@ const JudgementDetailView = () => {
       })
   }
 
+  const submitted = useMemo(() => {
+    return judgement?.submitted?.filter(sub => sub.state === 1)
+  }, [judgement?.submitted])
+
   return (
     <section style={{ padding: '40px' }}>
       <Stack tokens={{ childrenGap: 10 }}>
@@ -82,10 +86,10 @@ const JudgementDetailView = () => {
       </Stack>
       <Stack horizontal>
         <Stack.Item>
-          <TitledList title="已提交学生" subtitle="Submitted" items={judgement.submitted} render={StudentItem} style={{ marginLeft: '0' }} />
+          <TitledList title="已提交未评分学生" subtitle="Submitted" items={submitted} render={StudentItem} style={{ marginLeft: '0' }} />
         </Stack.Item>
         <Stack.Item grow={1}>
-          <TitledList title="提交详情" subtitle="Details" items={judgement.submitted[selectedStudent].submissions} render={(item, index) => {
+          <TitledList title="提交详情" subtitle="Details" items={submitted?.[selectedStudent]?.submissions} render={(item, index) => {
             return (<AttachmentItem {...item} key={item._id} />) as React.ReactNode
           }}
             bodyStyle={{ padding: '16px', boxSizing: 'border-box' }}
