@@ -29,7 +29,7 @@ body {
   div[class^=TitledList_gelp-titled-list__body]>div {
     display: grid;
     // grid-template-columns: repeat(4, 1fr);
-    grid-template-columns: repeat(4, 25%);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -38,7 +38,7 @@ body {
       div[class^=TitledList_gelp-titled-list__body]>div {
         display: grid;
         // grid-template-columns: repeat(4, 1fr);
-        grid-template-columns: repeat(3, 33.33%);
+        grid-template-columns: repeat(3, 1fr);
       }
     }
 }
@@ -48,7 +48,7 @@ body {
     div[class^=TitledList_gelp-titled-list__body]>div {
       display: grid;
       // grid-template-columns: repeat(4, 1fr);
-      grid-template-columns: repeat(2, 50%);
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 }

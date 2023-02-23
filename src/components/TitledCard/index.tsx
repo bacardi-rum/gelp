@@ -70,13 +70,13 @@ const TitledCard: React.FC<Props> = (props) => {
           <Icon iconName="Forward" className={styles['gelp-titled-card__forward']} style={{
             fontSize: FontSizes.size20,
             color: NeutralColors.gray140,
-          }} onClick={moveForward} />
+          }} onClick={moveForward}/>
         )}
 
         {props.indicator && (<Icon iconName="Back" className={styles['gelp-titled-card__back']} style={{
-          fontSize: FontSizes.size20,
-          color: NeutralColors.gray140,
-        }} onClick={moveBack} />
+            fontSize: FontSizes.size20,
+            color: NeutralColors.gray140,
+          }} onClick={moveBack}/>
         )}
       </div>
       {props.footer && (

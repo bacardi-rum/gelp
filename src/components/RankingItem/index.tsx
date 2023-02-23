@@ -16,7 +16,7 @@ const RankingItem = (item: UserInfo, index: number, key?: string) => {
           }}>{index! + 1}</Text>
         <Persona styles={{
           root: { marginLeft: '10px', flex: 1 }
-        }} text={item?.name} secondaryText={item?.email} size={PersonaSize.size40} />
+        }} text={item?.name} secondaryText={item?.email} size={PersonaSize.size40} imageUrl={item.avatarUrl}/>
         <Text variant="xLarge"
           style={{ color: NeutralColors.gray120, fontWeight: FontWeights.regular }}>{item?.score}</Text>
       </div>

@@ -3,23 +3,19 @@ import '@/App.scss'
 import Routes from '@routes'
 import {
   DefaultButton,
-  DirectionalHint,
   FontSizes,
   getTheme,
   Icon,
   IStackItemStyles,
   IStackStyles,
-  mergeStyles,
   mergeStyleSets,
   MessageBarType,
   MotionAnimations,
   NeutralColors,
   Persona,
   PersonaSize,
-  PrimaryButton,
   SearchBox,
-  Stack,
-  TooltipHost
+  Stack
 } from '@fluentui/react'
 import navLinkGroup from '@config/nav'
 import NavBar from '@components/NavBar'
@@ -28,8 +24,6 @@ import { useAppDispatch, useAppSelector, useInit } from '@hooks'
 import { useNavigate } from 'react-router-dom'
 import { logout } from '@redux/slices/userSlice'
 import Message from '@components/Message'
-
-const theme = getTheme()
 
 const App = () => {
   useInit()

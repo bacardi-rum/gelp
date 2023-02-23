@@ -104,7 +104,7 @@ const AssignmentDetailView = () => {
     {
       key: 'remaining_time',
       name: '剩余时间',
-      value: moment(detail?.endTime).fromNow(true)
+      value: new Date(detail?.endTime ?? '') <= new Date() ? '已过期' : moment(detail?.endTime).fromNow(true)
     }
   ] : []
 
@@ -127,7 +127,7 @@ const AssignmentDetailView = () => {
     {
       key: 'remaining_time',
       name: '剩余时间',
-      value: moment(detail?.endTime).fromNow(true)
+      value: (+new Date() > +new Date(detail?.endTime as string) ? '已过期' : '') + moment(detail?.endTime).fromNow(true)
     }
   ] : []
 
@@ -186,34 +186,45 @@ const AssignmentDetailView = () => {
             {detail?.name}
           </Text>
           <Text variant="xLarge" style={subtitleStyle}>{course?.name}</Text>
-          <Text variant="xLarge" style={{ ...subtitleStyle, display: 'block', margin: 0 }}>开始日期: {detail?.startTime}</Text>
-          <Text variant="xLarge" style={{ ...subtitleStyle, display: 'block', margin: 0 }}>结束日期: {detail?.endTime}</Text>
-          <Text variant="xLarge" style={{ ...subtitleStyle, display: 'block', margin: 0, color: NeutralColors.gray160 }}>分值: {detail?.score}</Text>
+          <Text variant="xLarge"
+                style={{ ...subtitleStyle, display: 'block', margin: 0 }}>开始日期: {detail?.startTime}</Text>
+          <Text variant="xLarge"
+                style={{ ...subtitleStyle, display: 'block', margin: 0 }}>结束日期: {detail?.endTime}</Text>
+          <Text variant="xLarge" style={{
+            ...subtitleStyle,
+            display: 'block',
+            margin: 0,
+            color: NeutralColors.gray160
+          }}>分值: {detail?.score}</Text>
         </Stack.Item>
         <Stack.Item style={stackItemStyle}>
           <Text variant="mediumPlus">
             <div dangerouslySetInnerHTML={{
               __html: detail?.content as string
-            }} style={{ marginBottom: '10px' }} />
+            }} style={{ marginBottom: '10px' }}/>
           </Text>
           {/* 附件信息 */}
           {detail?.attachments.map(attachment => (
-            <AttachmentItem {...attachment} key={attachment._id} />
+            <AttachmentItem {...attachment} key={attachment._id}/>
           ))}
         </Stack.Item>
         {user.identity === 0 && (
           <>
             <Stack.Item>
-              <TitledCard title="任务状态" subtitle="State" style={{ marginLeft: 0 }} bodyStyle={{ minHeight: 'initial', padding: 10 }}>
-                <DetailsList items={items} columns={columns} isHeaderVisible={false} selectionMode={SelectionMode.none} />
+              <TitledCard title="任务状态" subtitle="State" style={{ marginLeft: 0 }}
+                          bodyStyle={{ minHeight: 'initial', padding: 10 }}>
+                <DetailsList items={items} columns={columns} isHeaderVisible={false}
+                             selectionMode={SelectionMode.none}/>
               </TitledCard>
             </Stack.Item>
             {detail?.state !== 3 && detail?.state !== 2 && (
               <Stack.Item>
                 <TitledCard title="提交物" subtitle="Submissions" style={{ marginLeft: 0 }} actions={(
-                  uploaderDisabled ? (<PrimaryButton onClick={() => setUploaderDisabled(false)}>修改</PrimaryButton>) : (<DefaultButton onClick={handleUpload}>上传</DefaultButton>)
+                  uploaderDisabled ? (
+                    <PrimaryButton onClick={() => setUploaderDisabled(false)}>修改</PrimaryButton>) : (
+                    <DefaultButton onClick={handleUpload}>上传</DefaultButton>)
                 )}>
-                  <Uploader multiple files={submissions} disabled={uploaderDisabled} onChange={setSubmissions} />
+                  <Uploader multiple files={submissions} disabled={uploaderDisabled} onChange={setSubmissions}/>
                 </TitledCard>
               </Stack.Item>
             )}
@@ -221,10 +232,12 @@ const AssignmentDetailView = () => {
         )}
         {user.identity === 1 && (
           <Stack.Item>
-            <TitledCard title="任务状态" subtitle="State" style={{ marginLeft: 0 }} bodyStyle={{ minHeight: 'initial', padding: 10 }} actions={(
+            <TitledCard title="任务状态" subtitle="State" style={{ marginLeft: 0 }}
+                        bodyStyle={{ minHeight: 'initial', padding: 10 }} actions={(
               <PrimaryButton onClick={() => navigate(`/judgement/detail/${_id}`)}>评判任务</PrimaryButton>
             )}>
-              <DetailsList items={teacherItems} columns={columns} isHeaderVisible={false} selectionMode={SelectionMode.none} />
+              <DetailsList items={teacherItems} columns={columns} isHeaderVisible={false}
+                           selectionMode={SelectionMode.none}/>
             </TitledCard>
           </Stack.Item>
         )}

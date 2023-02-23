@@ -9,8 +9,6 @@ import { getAssignmentsByUserId } from '@redux/slices/assignmentSlice'
 import { getPermissionsByUserId } from '@redux/slices/permissionSlice'
 import { getJudgementsByUserId } from '@redux/slices/judgementSlice'
 
-
-
 export const useInit = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()

@@ -27,7 +27,7 @@ const DashboardView: React.FC = () => {
   const courses = useAppSelector(state => state.course.courses)
   const schedules = useAppSelector(state => state.schedule.schedules)
   const logs = useAppSelector(state => state.log.logs)
-  const assignments = useAppSelector(state => state.assignment.assignments)  
+  const assignments = useAppSelector(state => state.assignment.assignments)
 
   const [level, scoreRemaining] = getLevel(userInfo.score ?? 0)
   const totalScore = getScoreByLevel(level)
@@ -50,7 +50,7 @@ const DashboardView: React.FC = () => {
               <PrimaryButton onClick={() => navigate('/course')}>查看所有课程</PrimaryButton>
             )}
           >
-            {courses.map(course => (
+            {courses.slice(0, 6).map(course => (
               <InfoCard key={course._id}
                 onClickHref={`#/course/detail/${course._id}`}
                 title={course.name}
@@ -129,7 +129,7 @@ const DashboardView: React.FC = () => {
         </Stack.Item>
         <Stack.Item grow={1} className="gelp-home-list">
           <TitledList
-            items={logs}
+            items={logs.slice(0, 6)}
             render={LogItem}
             title="日志"
             subtitle="Logs"
@@ -138,25 +138,6 @@ const DashboardView: React.FC = () => {
             }
             bodyStyle={{ overflow: 'auto', height: '458px' }}
           />
-        </Stack.Item>
-      </Stack>
-
-      <Stack horizontal horizontalAlign="space-around">
-        <Stack.Item>
-          <TitledCard title="日历" subtitle="Calendar">
-            <Calendar
-              dateRangeType={DateRangeType.Day}
-              highlightSelectedMonth
-              showGoToToday
-              firstDayOfWeek={DayOfWeek.Monday}
-              strings={defaultCalendarStrings}
-            />
-          </TitledCard>
-        </Stack.Item>
-        <Stack.Item style={{ overflow: 'hidden' }} grow={1}>
-          <TitledCard title="勋章墙" subtitle="Medals" indicator>
-
-          </TitledCard>
         </Stack.Item>
       </Stack>
     </section>

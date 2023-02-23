@@ -2,7 +2,21 @@ import ControlledModal from "@components/ControlledModal"
 import Message from "@components/Message"
 import Uploader from "@components/Uploader"
 import { getLevel } from "@config/level"
-import { DefaultButton, FontWeights, Label, mergeStyleSets, MessageBarType, NeutralColors, Persona, PersonaSize, PrimaryButton, Stack, Text, TextField } from "@fluentui/react"
+import {
+  DefaultButton,
+  FontWeights,
+  Label,
+  mergeStyleSets,
+  MessageBarType, MotionAnimations,
+  MotionDurations,
+  NeutralColors,
+  Persona,
+  PersonaSize,
+  PrimaryButton,
+  Stack,
+  Text,
+  TextField
+} from '@fluentui/react'
 import { useAppDispatch, useAppSelector } from "@hooks"
 import cloud from "@laf"
 import { uploadCover } from "@redux/slices/courseSlice"
@@ -38,10 +52,10 @@ const ProfileItem: React.FC<ProfileItemProps> = (props) => {
     <div className={style.body}>
       <Label>{props.label}</Label>
       {props.multiline && props.text && (
-        <Text styles={{ root: { fontWeight: FontWeights.regular, color: NeutralColors.gray160 } }}>{props.text ?? '无数据'}</Text>
+        <Text styles={{ root: { fontWeight: FontWeights.regular, color: NeutralColors.gray160 } }}>{props.text || '无数据'}</Text>
       )}
       {(!props.multiline || !props.text) && (
-        <Text variant="xxLarge" styles={{ root: { fontWeight: FontWeights.regular, color: NeutralColors.gray160 } }}>{props.text ?? '无数据'}</Text>
+        <Text variant="xxLarge" styles={{ root: { fontWeight: FontWeights.regular, color: NeutralColors.gray160 } }}>{props.text || '无数据'}</Text>
       )}
     </div>
   )
@@ -147,7 +161,7 @@ const ProfileView = () => {
   }
 
   return (
-    <section style={{ padding: 40 }}>
+    <section style={{ padding: 40, animation: MotionAnimations.slideUpIn, animationDuration: MotionDurations.duration4 }}>
       <ControlledModal header="修改资料" isOpen={modalOpen} isBlocking handleDismiss={setModalOpen} footer={(
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
           <PrimaryButton form="gelp-modify-user-form" type="submit" disabled={submitDisabled}>确定</PrimaryButton>

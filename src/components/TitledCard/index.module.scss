@@ -11,7 +11,6 @@
   }
 
   &__body {
-    position: relative;
     background-color: #fff;
     white-space: nowrap;
     overflow-x: auto;
@@ -27,7 +26,7 @@
   &__back,
   &__forward {
     position: absolute;
-    top: 50%;
+    top: 60%;
     transform: translateY(-50%);
     padding: 10px;
     border-radius: 20px;
