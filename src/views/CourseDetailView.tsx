@@ -20,7 +20,7 @@ import { useAppDispatch, useAppSelector } from '@hooks'
 import { getCourseById, requestCourse } from '@redux/slices/courseSlice'
 import Message from '@components/Message'
 import TitledCard from '@components/TitledCard'
-import MedalItem from '@components/MetalItem'
+import MedalItem from '@components/MedalItem'
 
 
 const CourseDetailView = () => {
@@ -36,7 +36,7 @@ const CourseDetailView = () => {
     if (!course && !cachedCourse) {
       dispatch(getCourseById(_id as string))
     }
-  }, [course, cachedCourse])
+  }, [course, cachedCourse, dispatch, _id])
 
   const [assignmentName, setAssignmentName] = useState('')
   const [teachingBubbleVisible, setTeachingBubbleVisible] = useState(false)
@@ -69,7 +69,7 @@ const CourseDetailView = () => {
       <Stack style={animationStyle}>
         <Stack.Item>
           <Text variant="xxLargePlus" style={{ fontWeight: FontWeights.regular }}>{course?.name ?? cachedCourse?.name}</Text>
-          {identity === 0 && (
+          {identity === 0 && course && (
             <Text variant="xLarge" style={subtitleStyle}>{`已获总分: ${course?.assignments.reduce((pv, cv) => pv + (cv.scored ?? 0), 0)}`}</Text>
           )}
         </Stack.Item>

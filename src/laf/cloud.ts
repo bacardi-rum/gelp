@@ -1,5 +1,5 @@
 import { Cloud as LafCloud, CloudOptions, Db } from 'laf-client-sdk'
-import { S3, PutObjectCommand, PutObjectCommandInput } from '@aws-sdk/client-s3'
+import { S3, PutObjectCommandInput } from '@aws-sdk/client-s3'
 
 class Cloud {
   private readonly APPID: string = ''
@@ -10,8 +10,7 @@ class Cloud {
     this.APPID = appid
     this._cloud = new LafCloud({
       ...(options || {}),
-      // getAccessToken() { return JSON.parse(localStorage.getItem('gelp-user-info') as string)?.token ?? '' },
-      baseUrl: `https://${appid}.lafyun.com`
+      baseUrl: `https://${appid}.laf.run`
     })
   }
 

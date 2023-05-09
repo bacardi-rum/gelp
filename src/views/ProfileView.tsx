@@ -19,6 +19,7 @@ import {
 } from '@fluentui/react'
 import { useAppDispatch, useAppSelector } from "@hooks"
 import cloud from "@laf"
+import { APPID } from "@laf/config"
 import { uploadCover } from "@redux/slices/courseSlice"
 import { changeUserInfo, getUserByUserId } from "@redux/slices/userSlice"
 import { CSSProperties, FormEventHandler, useEffect, useMemo, useState } from "react"
@@ -143,7 +144,7 @@ const ProfileView = () => {
       token: user.token,
       email: modifiedUser?.email,
       phone: modifiedUser?.phone,
-      avatarUrl: `https://8oqy7o-public.oss.lafyun.com/${user._id}_${avatar[0].name}`
+      avatarUrl: `https://${APPID}-public.oss.laf.run/${user._id}_${avatar[0].name}`
     },
       user.identity === 0 ? {
         grade: modifiedUser?.grade,
