@@ -57,7 +57,7 @@ const CourseCreateView = () => {
           user_id,
           name: courseName,
           content: courseContent,
-          coverUrl: `https://${bucket}.oss.lafyun.com/${key}`,
+          coverUrl: `https://${bucket}.oss.laf.run/${key}`,
           needPassword,
           password,
           needPermission
