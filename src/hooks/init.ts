@@ -36,6 +36,7 @@ export const useInit = () => {
                 dispatch(getJudgementsByUserId(userInfo._id))
               }
             })
+            .then(() => navigate('/dashboard', { state: { from: 'init' } }))
         }
       }
     } catch {

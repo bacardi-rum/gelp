@@ -36,11 +36,12 @@ const navLinkGroup: NavItem[] = [
     identity: 0
   },
   {
-    name: '关于',
-    url: '/about',
-    key: 'about',
-    identity: 2
+    name: '交互编程环境',
+    url: '/ide',
+    key: 'ide',
+    identity: 0
   }
+  
 ]
 
 export default navLinkGroup

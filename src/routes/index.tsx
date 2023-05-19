@@ -5,7 +5,7 @@ import React, { lazy } from 'react'
 const lazyLoad = (viewName: string) => lazy(() => import(`@views/${viewName}View`))
 
 const LoginView = lazyLoad('Login'),
-  AboutView = lazyLoad('About'),
+  IDEView = lazyLoad('IDE'),
   CourseView = lazyLoad('Course'),
   CourseDetailView = lazyLoad('CourseDetail'),
   CourseForumView = lazyLoad('CourseForum'),
@@ -33,8 +33,8 @@ const Routes: React.FC = () => {
       children: [],
     },
     {
-      path: '/about',
-      element: <AboutView />,
+      path: '/ide',
+      element: <IDEView />,
       children: []
     },
     {
